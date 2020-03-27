@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class heliControl : MonoBehaviour
 {
-    Rigidbody helicopterRigid;
+    Rigidbody2D helicopterRigid;
     public Sprite[] helicopterSprite;
     SpriteRenderer spriteRenderer;
     float _time = 0;
-    float timeLimit = 0.1F; //gaz verildiğin timeLimit 0,04 olmalı
+    float timeLimit = 0.1F;
     float vertical = 0;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        helicopterRigid = GetComponent<Rigidbody>();
+        helicopterRigid = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -31,7 +31,9 @@ public class heliControl : MonoBehaviour
         {
             timeLimit = 0.1F;
         }
+
         _time += Time.deltaTime;
+
         if(_time > timeLimit && spriteRenderer.sprite == helicopterSprite[0])
         {
             spriteRenderer.sprite = helicopterSprite[1];
