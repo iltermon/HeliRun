@@ -7,7 +7,7 @@ public class heliControl : MonoBehaviour
     public Sprite[] helicopterSprite;
     SpriteRenderer spriteRenderer;
     float _time = 0;
-    float timeLimit = 0.1F; //gaz verildiğin timeLimit 0,04 olmalı
+        float timeLimit = 0.1F; //gaz verildiğin timeLimit 0,04 olmalı
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -17,7 +17,6 @@ public class heliControl : MonoBehaviour
     void Update()
     {
 
-        
         _time += Time.deltaTime;
         if(_time > timeLimit && spriteRenderer.sprite == helicopterSprite[0])
         {
