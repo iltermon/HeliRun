@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class control : MonoBehaviour
+public class heliControl : MonoBehaviour
 {
-    public Sprite []helicopterSprite;
-    // Start is called before the first frame update
+    public Sprite[] helicopterSprite;
+
     void Start()
     {
         
@@ -13,7 +13,7 @@ public class control : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {  
+    {
         
     }
 }
