@@ -21,7 +21,11 @@ public class heliControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        Animasyon();
+    }
+
+    void Animasyon()
+    {
         vertical = Input.GetAxisRaw("Vertical");
         if (vertical > 0)
         {
@@ -45,12 +49,11 @@ public class heliControl : MonoBehaviour
             _time = 0;
      
         }
-        
-
     }
+
     void FixedUpdate()
     {
-        Vector3 vec = new Vector3(0, vertical, 0);
+        Vector2 vec = new Vector2(0, vertical);
         helicopterRigid.AddForce(vec * speed);
     }
 }
