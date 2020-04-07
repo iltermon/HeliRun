@@ -9,11 +9,11 @@ public class GameControl : MonoBehaviour
     public GameObject background2;
     public GameObject block;
     public int blockNumber;
-    public float backgroundSpeed = -2f;
+    public float backgroundSpeed = -5f;
     private GameObject[] blocks;
 
-    Rigidbody2D rigid1;
-    Rigidbody2D rigid2;
+    Rigidbody2D bgrigid1;
+    Rigidbody2D bgrigid2;
     Rigidbody2D blockRigid;
 
     float t = 0;
@@ -21,28 +21,29 @@ public class GameControl : MonoBehaviour
     private float size = 0;
     void Start()
     {
-        rigid1 = background1.GetComponent<Rigidbody2D>();
-        rigid2 = background2.GetComponent<Rigidbody2D>();
+        bgrigid1 = background1.GetComponent<Rigidbody2D>();
+        bgrigid2 = background2.GetComponent<Rigidbody2D>();
         
-        rigid1.velocity = new Vector2(-backgroundSpeed, 0);
-        rigid2.velocity = new Vector2(-backgroundSpeed, 0);
+        bgrigid1.velocity = new Vector2(-15f, 0);
+        bgrigid2.velocity = new Vector2(-15f, 0);
         
         size = background1.GetComponent<BoxCollider2D>().size.x;
         blocks = new GameObject[blockNumber];
-         
-        for (int i= 0; i < blocks.Length; i++)
-        {
-            blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.identity);
-            blockRigid = blocks[i].AddComponent<Rigidbody2D>();
-            blockRigid.gravityScale = 0;
-            blockRigid.velocity = new Vector2(-backgroundSpeed, 0);
-        }
+        Debug.Log(background1.transform.position.x);
+        Debug.Log(background2.transform.position.x);
+        //for (int i= 0; i < blocks.Length; i++)
+        //{
+        //    blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.identity);
+        //    blockRigid = blocks[i].AddComponent<Rigidbody2D>();
+        //    blockRigid.gravityScale = 0;
+        //    blockRigid.velocity = new Vector2(-backgroundSpeed, 0);
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(background1.transform.position.x<= -size)
+        if(background1.transform.position.x <= -size)
         {
             background1.transform.position += new Vector3(size * 2, 0);
         }
