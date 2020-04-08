@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
@@ -10,16 +11,18 @@ public class GameControl : MonoBehaviour
     public GameObject block;
     public int blockNumber=5;
     public float backgroundSpeed = -5f;
+    
     private GameObject[] blocks;
 
     Rigidbody2D bgrigid1;
     Rigidbody2D bgrigid2;
     Rigidbody2D blockRigid;
+    
 
     float reset_time = 0;
     int counter = 0;
     private float size = 0;
-    public int point;
+    private int point;
     void Start()
     {
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
@@ -42,6 +45,7 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if(background1.transform.position.x <= -size)
         {
             background1.transform.position += new Vector3(size * 2, 0);
@@ -64,12 +68,15 @@ public class GameControl : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void gameOver()
     {
-        if (collision.gameObject.tag == "point")
+        for (int i= 0; i<blocks.Length; i++)
         {
-            point++;
-            Debug.Log(point);
+            blocks[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            bgrigid1.velocity = Vector2.zero;
+            bgrigid2.velocity = Vector2.zero;
+            
         }
-    }
+    }   
+    
 }

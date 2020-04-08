@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class heliControl : MonoBehaviour
-{
+{   
     Rigidbody2D helicopterRigid;
     public Sprite[] helicopterSprite;
     SpriteRenderer spriteRenderer;
@@ -12,17 +13,24 @@ public class heliControl : MonoBehaviour
     float vertical = 0;
     public int speed = 10;
     int point = 0;
+    public Text point_text;
+    bool gameOver = false;
+    public GameControl gameControl;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         helicopterRigid = GetComponent<Rigidbody2D>();
+        gameControl = GameObject.FindGameObjectWithTag("gameControlScript").GetComponent<GameControl>();
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        Animasyon();
+        if (!gameOver)
+        {
+            Animasyon();
+        }
     }
 
     void Animasyon()
@@ -54,8 +62,15 @@ public class heliControl : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!gameOver) 
+        { 
         Vector2 vec = new Vector2(0, vertical);
         helicopterRigid.AddForce(vec * speed);
+        }
+        else if(transform.position.y <= -7.77f){ 
+            helicopterRigid.velocity = Vector2.zero;
+            helicopterRigid.gravityScale = 0;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -63,8 +78,16 @@ public class heliControl : MonoBehaviour
         if (collision.gameObject.tag == "point")
         {
             point++;
-            Debug.Log(point);   
+            point_text.text = point.ToString();
         }
        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "block")
+        {
+            gameOver = true;
+            gameControl.gameOver();
+        }
     }
 }
