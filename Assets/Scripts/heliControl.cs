@@ -11,6 +11,7 @@ public class heliControl : MonoBehaviour
     float timeLimit = 0.1F;
     float vertical = 0;
     public int speed = 10;
+    int point = 0;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -55,5 +56,15 @@ public class heliControl : MonoBehaviour
     {
         Vector2 vec = new Vector2(0, vertical);
         helicopterRigid.AddForce(vec * speed);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "point")
+        {
+            point++;
+            Debug.Log(point);   
+        }
+       
     }
 }

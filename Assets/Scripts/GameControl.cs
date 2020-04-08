@@ -8,7 +8,7 @@ public class GameControl : MonoBehaviour
     public GameObject background1;
     public GameObject background2;
     public GameObject block;
-    public int blockNumber;
+    public int blockNumber=5;
     public float backgroundSpeed = -5f;
     private GameObject[] blocks;
 
@@ -16,28 +16,27 @@ public class GameControl : MonoBehaviour
     Rigidbody2D bgrigid2;
     Rigidbody2D blockRigid;
 
-    float t = 0;
+    float reset_time = 0;
     int counter = 0;
     private float size = 0;
+    public int point;
     void Start()
     {
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
         bgrigid2 = background2.GetComponent<Rigidbody2D>();
         
-        bgrigid1.velocity = new Vector2(-15f, 0);
-        bgrigid2.velocity = new Vector2(-15f, 0);
+        bgrigid1.velocity = new Vector2(-5f, 0);
+        bgrigid2.velocity = new Vector2(-5f, 0);
         
         size = background1.GetComponent<BoxCollider2D>().size.x;
         blocks = new GameObject[blockNumber];
-        Debug.Log(background1.transform.position.x);
-        Debug.Log(background2.transform.position.x);
-        //for (int i= 0; i < blocks.Length; i++)
-        //{
-        //    blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.identity);
-        //    blockRigid = blocks[i].AddComponent<Rigidbody2D>();
-        //    blockRigid.gravityScale = 0;
-        //    blockRigid.velocity = new Vector2(-backgroundSpeed, 0);
-        //}
+        for (int i= 0; i < blocks.Length; i++)
+        {
+            blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.identity);
+            blockRigid = blocks[i].AddComponent<Rigidbody2D>();
+            blockRigid.gravityScale = 0;
+            blockRigid.velocity = new Vector2(-5f, 0);
+        }
     }
 
     // Update is called once per frame
@@ -51,17 +50,26 @@ public class GameControl : MonoBehaviour
         {
             background2.transform.position += new Vector3(size * 2, 0);
         }
-        t = Time.deltaTime;
-        if (t > 2f)
+        reset_time += Time.deltaTime;
+        if (reset_time > 2f)
         {
-            t = 0;
-            float yAxis = Random.Range(-0.48f, 1.71f);
-            blocks[counter].transform.position = new Vector3(6, yAxis);
+            reset_time = 0;
+            float yAxis = Random.Range(-1.4f, 3f);
+            blocks[counter].transform.position = new Vector3(25f, yAxis);
             counter++;
             if (counter >= blocks.Length)
             {
                 counter = 0;
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "point")
+        {
+            point++;
+            Debug.Log(point);
         }
     }
 }
