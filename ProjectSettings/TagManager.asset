@@ -6,6 +6,7 @@ TagManager:
   tags:
   - point
   - block
+  - gameControlScript
   layers:
   - Default
   - TransparentFX
