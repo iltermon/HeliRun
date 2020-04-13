@@ -14,7 +14,7 @@ public class heliControl : MonoBehaviour
     public int speed = 10;
     int point = 0;
     public Text point_text;
-    bool gameOver = false;
+    public bool gameOver = false;
     public GameControl gameControl;
     void Start()
     {

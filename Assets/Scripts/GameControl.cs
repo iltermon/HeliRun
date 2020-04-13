@@ -17,8 +17,8 @@ public class GameControl : MonoBehaviour
     Rigidbody2D bgrigid1;
     Rigidbody2D bgrigid2;
     Rigidbody2D blockRigid;
-    
 
+    heliControl heliControl;
     float reset_time = 0;
     int counter = 0;
     private float size = 0;
