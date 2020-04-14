@@ -18,7 +18,7 @@ public class GameControl : MonoBehaviour
     Rigidbody2D bgrigid2;
     Rigidbody2D blockRigid;
 
-    heliControl heliControl;
+    public heliControl hc;
     float reset_time = 0;
     int counter = 0;
     private float size = 0;
@@ -75,8 +75,8 @@ public class GameControl : MonoBehaviour
             blocks[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             bgrigid1.velocity = Vector2.zero;
             bgrigid2.velocity = Vector2.zero;
-            
         }
+        Destroy(this);
     }   
     
 }
