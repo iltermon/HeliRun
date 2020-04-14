@@ -14,15 +14,17 @@ public class heliControl : MonoBehaviour
     public int speed = 10;
     int score = 0;
     public Text point_text;
-    private static bool gameOver = false;
+    public static bool gameOver = false;
     public GameControl gameControl;
+    public AudioSource audio;
     public AudioClip scoreSound;
+    public AudioClip gameOverSound;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         helicopterRigid = GetComponent<Rigidbody2D>();
         gameControl = GameObject.FindGameObjectWithTag("gameControlScript").GetComponent<GameControl>();
-        
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,6 +39,7 @@ public class heliControl : MonoBehaviour
     void Animasyon()
     {
         vertical = Input.GetAxisRaw("Vertical");
+        Debug.Log(vertical);
         if (vertical > 0)
         {
             timeLimit = 0.07F;
@@ -80,6 +83,8 @@ public class heliControl : MonoBehaviour
         {
             score++;
             point_text.text = score.ToString();
+            audio.clip = scoreSound;
+            audio.Play();
         }
        
     }
@@ -87,8 +92,14 @@ public class heliControl : MonoBehaviour
     {
         if (collision.gameObject.tag == "block")
         {
+            if(!gameOver)
+            {
+                audio.clip = gameOverSound;
+                audio.Play();
+            }
             gameOver = true;
             gameControl.gameOver();
+            
         }
     }
 }

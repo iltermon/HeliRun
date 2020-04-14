@@ -54,7 +54,7 @@ public class GameControl : MonoBehaviour
             background2.transform.position += new Vector3(size * 2, 0);
         }
         reset_time += Time.deltaTime;
-        Debug.Log(heliControl.gameOver);
+ 
         if (reset_time > 2f && heliControl.gameOver==false)
         {
             reset_time = 0;
