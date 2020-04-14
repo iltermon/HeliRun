@@ -12,10 +12,11 @@ public class heliControl : MonoBehaviour
     float timeLimit = 0.1F;
     float vertical = 0;
     public int speed = 10;
-    int point = 0;
+    int score = 0;
     public Text point_text;
     private static bool gameOver = false;
     public GameControl gameControl;
+    public AudioClip scoreSound;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -77,8 +78,8 @@ public class heliControl : MonoBehaviour
     {
         if (collision.gameObject.tag == "point")
         {
-            point++;
-            point_text.text = point.ToString();
+            score++;
+            point_text.text = score.ToString();
         }
        
     }
