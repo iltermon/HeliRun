@@ -88,13 +88,21 @@ public class heliControl : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "block")
-        {
+        {   
             if(!gameOver)
             {
                 sounds[1].Play();
             }
+            
             gameOver = true;
             gameControl.gameOver();
+            if (score > GameControl.highscore)
+            {
+                GameControl.highscore = score;
+                PlayerPrefs.SetInt("save", GameControl.highscore);
+            }
         }
+
+        
     }
 }

@@ -11,9 +11,10 @@ public class GameControl : MonoBehaviour
     public GameObject block;
     public int blockNumber=5;
     public float backgroundSpeed = -5f;
-    
+    public Image title;
+    public Text highscoreText;
     private GameObject[] blocks;
-
+    
     Rigidbody2D bgrigid1;
     Rigidbody2D bgrigid2;
     Rigidbody2D blockRigid;
@@ -21,14 +22,16 @@ public class GameControl : MonoBehaviour
     float reset_time = 0;
     int counter = 0;
     private float size = 0;
-    private int point;
+    public int score=0;
+    public static int highscore;
     public static bool gameStarted = false;
     void Start()
     {
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
         bgrigid2 = background2.GetComponent<Rigidbody2D>();
         blocks = new GameObject[blockNumber];
-        
+        highscore = PlayerPrefs.GetInt("save");
+        highscoreText.text = "High Score: " + highscore.ToString();
 
     }
     void waitStart()
@@ -37,8 +40,9 @@ public class GameControl : MonoBehaviour
         {
             gameStarted = true;
             startGame();
+            title.gameObject.SetActive(false);
+            highscoreText.gameObject.SetActive(false);
         }
-
     }
     void startGame()
     {
