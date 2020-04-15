@@ -17,22 +17,39 @@ public class GameControl : MonoBehaviour
     Rigidbody2D bgrigid1;
     Rigidbody2D bgrigid2;
     Rigidbody2D blockRigid;
-
+    public GameObject helicopter;
     float reset_time = 0;
     int counter = 0;
     private float size = 0;
     private int point;
+    public static bool gameStarted = false;
     void Start()
     {
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
         bgrigid2 = background2.GetComponent<Rigidbody2D>();
+        blocks = new GameObject[blockNumber];
         
+
+    }
+    void waitStart()
+    {
+        if(gameStarted==false && Input.GetAxisRaw("Vertical") > 0)
+        {
+            gameStarted = true;
+            startGame();
+        }
+
+    }
+    void startGame()
+    {
         bgrigid1.velocity = new Vector2(-5f, 0);
         bgrigid2.velocity = new Vector2(-5f, 0);
-
+        helicopter.GetComponent<Rigidbody2D>().simulated = true;
         size = background1.GetComponent<BoxCollider2D>().size.x;
-        blocks = new GameObject[blockNumber];
-        for (int i= 0; i < blocks.Length; i++)
+
+        
+        
+        for (int i = 0; i < blocks.Length; i++)
         {
             blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.identity);
             blockRigid = blocks[i].AddComponent<Rigidbody2D>();
@@ -40,11 +57,10 @@ public class GameControl : MonoBehaviour
             blockRigid.velocity = new Vector2(-5f, 0);
         }
     }
-
     // Update is called once per frame
     void Update()
     {
-        
+        waitStart();
         if(background1.transform.position.x <= -size)
         {
             background1.transform.position += new Vector3(size * 2, 0);
@@ -55,7 +71,7 @@ public class GameControl : MonoBehaviour
         }
         reset_time += Time.deltaTime;
  
-        if (reset_time > 2f && heliControl.gameOver==false)
+        if (reset_time > 2f && heliControl.gameOver==false && gameStarted==true)
         {
             reset_time = 0;
             float yAxis = Random.Range(-1.4f, 3f);
