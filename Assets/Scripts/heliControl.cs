@@ -28,13 +28,13 @@ public class heliControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameOver)
+        if (gameOver==false && GameControl.gameStarted==true)
         {
-            Animasyon();
+            Animation();
         }
     }
 
-    void Animasyon()
+    void Animation()
     {
         vertical = Input.GetAxisRaw("Vertical");
         Debug.Log(vertical);
@@ -95,7 +95,6 @@ public class heliControl : MonoBehaviour
             }
             gameOver = true;
             gameControl.gameOver();
-            
         }
     }
 }
