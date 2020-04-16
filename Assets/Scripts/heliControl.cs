@@ -93,7 +93,7 @@ public class heliControl : MonoBehaviour
             {
                 sounds[1].Play();
             }
-            
+            GetComponent<PolygonCollider2D>().enabled = false;
             gameOver = true;
             gameControl.gameOver();
             if (score > GameControl.highscore)

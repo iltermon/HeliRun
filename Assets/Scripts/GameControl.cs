@@ -32,9 +32,8 @@ public class GameControl : MonoBehaviour
         blocks = new GameObject[blockNumber];
         highscore = PlayerPrefs.GetInt("save");
         highscoreText.text = "High Score: " + highscore.ToString();
-
     }
-    void waitStart()
+    void waitforInput()
     {
         if(gameStarted==false && Input.GetAxisRaw("Vertical") > 0)
         {
@@ -64,7 +63,7 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        waitStart();
+        waitforInput();
         if(background1.transform.position.x <= -size)
         {
             background1.transform.position += new Vector3(size * 2, 0);
@@ -90,13 +89,12 @@ public class GameControl : MonoBehaviour
 
     public void gameOver()
     {
-        for (int i= 0; i<blocks.Length; i++)
+        for (int i = 0; i < blocks.Length; i++)
         {
             blocks[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             bgrigid1.velocity = Vector2.zero;
             bgrigid2.velocity = Vector2.zero;
         }
-       
     }   
     
 }
