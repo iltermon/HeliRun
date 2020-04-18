@@ -153,7 +153,6 @@ MonoBehaviour:
   speed: 10
   point_text: {fileID: 709739067}
   gameControl: {fileID: 828801085}
-  sounds: []
 --- !u!212 &6242085
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -295,11 +294,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2df2346269cdba04ab75b10ec239ef6f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0288da0a571f56c4d825fbf69f2e21f6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.353
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -391,7 +390,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9a563a4251bfc3a44b392a2b1c6ef584, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 196725afff91da94c9cabc7bfa6152a3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -487,7 +486,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 895b87b64022191409dd545baec4c498, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f52e267ff27605e4a80e2e5df4d877d3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.25
   m_Pitch: 1

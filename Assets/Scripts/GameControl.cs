@@ -49,7 +49,7 @@ public class GameControl : MonoBehaviour
         bgrigid2.velocity = new Vector2(-5f, 0);
         helicopter.GetComponent<Rigidbody2D>().simulated = true;
         size = background1.GetComponent<BoxCollider2D>().size.x;
-
+        heliControl.sounds[0].Play();
         
         
         for (int i = 0; i < blocks.Length; i++)
@@ -90,6 +90,7 @@ public class GameControl : MonoBehaviour
 
     public void gameOver()
     {
+        // TODO: yukarı çıkış hızını sıfırla
         for (int i = 0; i < blocks.Length; i++)
         {
             blocks[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
