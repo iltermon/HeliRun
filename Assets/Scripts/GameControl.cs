@@ -77,6 +77,7 @@ public class GameControl : MonoBehaviour
         if (reset_time > 2f && heliControl.gameOver==false && gameStarted==true)
         {
             reset_time = 0;
+            // TODO: engel oluşturulurken zamanı kullan.
             float yAxis = Random.Range(-1.4f, 3f);
             blocks[counter].transform.position = new Vector3(25f, yAxis);
             counter++;
