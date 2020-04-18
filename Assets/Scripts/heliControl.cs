@@ -16,7 +16,7 @@ public class heliControl : MonoBehaviour
     public Text point_text;
     public static bool gameOver = false;
     public GameControl gameControl;
-    public AudioSource []sounds;
+    public static AudioSource []sounds;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -91,6 +91,7 @@ public class heliControl : MonoBehaviour
         {   
             if(!gameOver)
             {
+                sounds[0].Pause();
                 sounds[1].Play();
             }
             GetComponent<PolygonCollider2D>().enabled = false;
