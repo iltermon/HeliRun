@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class heliControl : MonoBehaviour
 {   
     Rigidbody2D helicopterRigid;
@@ -10,7 +11,7 @@ public class heliControl : MonoBehaviour
     SpriteRenderer spriteRenderer;
     float _time = 0;
     float timeLimit = 0.1F;
-    float vertical = 0;
+    float vertical = 0f;
     public int speed = 10;
     int score = 0;
     public Text point_text;
@@ -36,9 +37,9 @@ public class heliControl : MonoBehaviour
 
     void Animation()
     {
-        vertical = Input.GetAxisRaw("Vertical");
+        vertical=GameControl.getVertical();
         Debug.Log(vertical);
-        if (vertical > 0)
+        if (vertical>0)
         {
             timeLimit = 0.07F;
         }

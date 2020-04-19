@@ -35,7 +35,7 @@ public class GameControl : MonoBehaviour
     }
     void waitforInput()
     {
-        if(gameStarted==false && Input.GetAxisRaw("Vertical") > 0)
+        if(gameStarted==false && getVertical() > 0)
         {
             gameStarted = true;
             startGame();
@@ -97,5 +97,15 @@ public class GameControl : MonoBehaviour
             bgrigid2.velocity = Vector2.zero;
         }
     }   
-    
+    public static float getVertical()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
