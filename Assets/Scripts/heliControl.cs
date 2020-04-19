@@ -26,7 +26,6 @@ public class heliControl : MonoBehaviour
         sounds = GetComponents<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (gameOver==false && GameControl.gameStarted==true)

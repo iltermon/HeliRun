@@ -5,26 +5,26 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     public GameObject background1;
     public GameObject background2;
     public GameObject block;
     public int blockNumber=5;
     public float backgroundSpeed = -5f;
     public Image title;
+    public GameObject helicopter;
     public Text highscoreText;
     private GameObject[] blocks;
-    
     Rigidbody2D bgrigid1;
     Rigidbody2D bgrigid2;
     Rigidbody2D blockRigid;
-    public GameObject helicopter;
     float reset_time = 0;
     int counter = 0;
     private float size = 0;
     public int score=0;
     public static int highscore;
     public static bool gameStarted = false;
+
     void Start()
     {
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
@@ -89,7 +89,7 @@ public class GameControl : MonoBehaviour
 
     public void gameOver()
     {
-        // TODO: yukarı çıkış hızını sıfırla
+        helicopter.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         for (int i = 0; i < blocks.Length; i++)
         {
             blocks[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
