@@ -15,7 +15,7 @@ public class heliControl : MonoBehaviour
     public int speed = 10;
     int score = 0;
     public Text point_text;
-    public static bool gameOver = false;
+    
     public GameControl gameControl;
     public static AudioSource []sounds;
     void Start()
@@ -28,7 +28,7 @@ public class heliControl : MonoBehaviour
 
     void Update()
     {
-        if (gameOver==false && GameControl.gameStarted==true)
+        if (GameControl.gameOver==false && GameControl.gameStarted==true)
         {
             Animation();
         }
@@ -64,7 +64,7 @@ public class heliControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!gameOver) 
+        if (!GameControl.gameOver) 
         { 
         Vector2 vec = new Vector2(0, vertical);
         helicopterRigid.AddForce(vec * speed);
@@ -89,14 +89,14 @@ public class heliControl : MonoBehaviour
     {
         if (collision.gameObject.tag == "block")
         {   
-            if(!gameOver)
+            if(!GameControl.gameOver)
             {
                 sounds[0].Pause();
                 sounds[1].Play();
             }
             GetComponent<PolygonCollider2D>().enabled = false;
-            gameOver = true;
-            gameControl.gameOver();
+            GameControl.gameOver = true;
+            gameControl.GameOver();
             if (score > GameControl.highscore)
             {
                 GameControl.highscore = score;

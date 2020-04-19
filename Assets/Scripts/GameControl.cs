@@ -14,6 +14,7 @@ public class GameControl : MonoBehaviour
     public Image title;
     public GameObject helicopter;
     public Text highscoreText;
+    public static bool gameOver = false;
     private GameObject[] blocks;
     Rigidbody2D bgrigid1;
     Rigidbody2D bgrigid2;
@@ -73,7 +74,7 @@ public class GameControl : MonoBehaviour
         }
         reset_time += Time.deltaTime;
  
-        if (reset_time > 2f && heliControl.gameOver==false && gameStarted==true)
+        if (reset_time > 2f && gameOver==false && gameStarted==true)
         {
             reset_time = 0;
             // TODO: engel oluşturulurken zamanı kullan.
@@ -87,7 +88,7 @@ public class GameControl : MonoBehaviour
         }
     }
 
-    public void gameOver()
+    public void GameOver()
     {
         helicopter.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         for (int i = 0; i < blocks.Length; i++)
