@@ -51,10 +51,9 @@ public class GameControl : MonoBehaviour
         size = background1.GetComponent<BoxCollider2D>().size.x;
         heliControl.sounds[0].Play();
         
-        
         for (int i = 0; i < blocks.Length; i++)
         {
-            blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.identity);
+            blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.Euler(0,0,270));
             blockRigid = blocks[i].AddComponent<Rigidbody2D>();
             blockRigid.gravityScale = 0;
             blockRigid.velocity = new Vector2(-5f, 0);
@@ -78,7 +77,7 @@ public class GameControl : MonoBehaviour
         {
             reset_time = 0;
             // TODO: engel oluşturulurken zamanı kullan.
-            float yAxis = Random.Range(-1.4f, 3f);
+            float yAxis = Random.Range(-8.44f, -1.91f);
             blocks[counter].transform.position = new Vector3(25f, yAxis);
             counter++;
             if (counter >= blocks.Length)
