@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
-
+    public Text clickToStart;
     public GameObject background1;
     public GameObject background2;
     public GameObject block;
@@ -42,6 +42,7 @@ public class GameControl : MonoBehaviour
             startGame();
             title.gameObject.SetActive(false);
             highscoreText.gameObject.SetActive(false);
+            clickToStart.gameObject.SetActive(false);
         }
     }
     void startGame()
@@ -77,7 +78,6 @@ public class GameControl : MonoBehaviour
         if (reset_time > 2f && gameOver==false && gameStarted==true)
         {
             reset_time = 0;
-            // TODO: engel oluşturulurken zamanı kullan.
             float yAxis = Random.Range(-8.44f, -1.91f);
             blocks[counter].transform.position = new Vector3(25f, yAxis);
             counter++;
