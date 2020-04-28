@@ -25,14 +25,32 @@ public class GameControl : MonoBehaviour
     public int score=0;
     public static int highscore;
     public static bool gameStarted = false;
-
+    string strHighScore;
+    string strClick;
+    string strGameOver;
+    string lang;
+    void Language()
+    {
+        if(lang == "tur")
+        {
+            strHighScore = Strings.highScoreTur;
+            strClick = Strings.clickToStartTur;
+            strGameOver = Strings.gameOverTur;       
+        }
+        else if (lang == "eng")
+        {
+            strHighScore = Strings.highScoreEng;
+            strClick = Strings.clickToStartEng;
+            strGameOver = Strings.gameOverEng;
+        }
+    }
     void Start()
     {
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
         bgrigid2 = background2.GetComponent<Rigidbody2D>();
         blocks = new GameObject[blockNumber];
-        highscore = PlayerPrefs.GetInt("save");
-        highscoreText.text = "High Score: " + highscore.ToString();
+        highscore = PlayerPrefs.GetInt("highScore");
+        highscoreText.text = "" + highscore.ToString();
     }
     void waitforInput()
     {
