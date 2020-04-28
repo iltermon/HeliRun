@@ -13,7 +13,6 @@ public class heliControl : MonoBehaviour
     float timeLimit = 0.1F;
     float vertical = 0f;
     public int speed = 10;
-    int score = 0;
     public Text point_text;
     
     public GameControl gameControl;
@@ -37,7 +36,6 @@ public class heliControl : MonoBehaviour
     void Animation()
     {
         vertical=GameControl.getVertical();
-        Debug.Log(vertical);
         if (vertical>0)
         {
             timeLimit = 0.07F;
@@ -79,9 +77,16 @@ public class heliControl : MonoBehaviour
     {
         if (collision.gameObject.tag == "point")
         {
-            score++;
-            point_text.text = score.ToString();
+            GameControl.score++;
+            point_text.text = GameControl.score.ToString();
             sounds[2].Play();
+            GameControl.bgrigid1.velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
+            GameControl.bgrigid2.velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
+            GameControl.blocks[0].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
+            GameControl.blocks[1].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
+            GameControl.blocks[2].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
+            GameControl.blocks[3].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
+            GameControl.blocks[4].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
         }
        
     }
@@ -97,13 +102,11 @@ public class heliControl : MonoBehaviour
             GetComponent<PolygonCollider2D>().enabled = false;
             GameControl.gameOver = true;
             gameControl.GameOver();
-            if (score > GameControl.highscore)
+            if (GameControl.score > GameControl.highscore)
             {
-                GameControl.highscore = score;
+                GameControl.highscore = GameControl.score;
                 PlayerPrefs.SetInt("highScore", GameControl.highscore);
             }
         }
-
-        
     }
 }

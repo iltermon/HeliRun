@@ -5,52 +5,41 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
+    
     public Text clickToStart;
     public GameObject background1;
     public GameObject background2;
     public GameObject block;
     public int blockNumber=5;
-    public float backgroundSpeed = -5f;
+    public static float backgroundSpeed = 5f;
     public Image title;
     public GameObject helicopter;
     public Text highscoreText;
     public static bool gameOver = false;
-    private GameObject[] blocks;
-    Rigidbody2D bgrigid1;
-    Rigidbody2D bgrigid2;
-    Rigidbody2D blockRigid;
+    public static GameObject[] blocks;
+    public static Rigidbody2D bgrigid1;
+    public static Rigidbody2D bgrigid2;
+    public static Rigidbody2D blockRigid;
     float reset_time = 0;
     int counter = 0;
     private float size = 0;
-    public int score=0;
+    public static int score=0;
     public static int highscore;
     public static bool gameStarted = false;
     string strHighScore;
     string strClick;
+//TODO: SES KAPAMA EKLE
+//TODO: GAME OVER ŞEYSİNİ EKLE
     string strGameOver;
     string lang;
-    void Language()
-    {
-        if(lang == "tur")
-        {
-            strHighScore = Strings.highScoreTur;
-            strClick = Strings.clickToStartTur;
-            strGameOver = Strings.gameOverTur;       
-        }
-        else if (lang == "eng")
-        {
-            strHighScore = Strings.highScoreEng;
-            strClick = Strings.clickToStartEng;
-            strGameOver = Strings.gameOverEng;
-        }
-    }
+
     void Start()
     {
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
         bgrigid2 = background2.GetComponent<Rigidbody2D>();
         blocks = new GameObject[blockNumber];
         highscore = PlayerPrefs.GetInt("highScore");
-        highscoreText.text = "" + highscore.ToString();
+        highscoreText.text = strHighScore + highscore.ToString();
     }
     void waitforInput()
     {
@@ -65,8 +54,8 @@ public class GameControl : MonoBehaviour
     }
     void startGame()
     {
-        bgrigid1.velocity = new Vector2(-5f, 0);
-        bgrigid2.velocity = new Vector2(-5f, 0);
+        bgrigid1.velocity = new Vector2(-backgroundSpeed, 0);
+        bgrigid2.velocity = new Vector2(-backgroundSpeed, 0);
         helicopter.GetComponent<Rigidbody2D>().simulated = true;
         size = background1.GetComponent<BoxCollider2D>().size.x;
         heliControl.sounds[0].Play();
@@ -76,7 +65,7 @@ public class GameControl : MonoBehaviour
             blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.Euler(0,0,270));
             blockRigid = blocks[i].AddComponent<Rigidbody2D>();
             blockRigid.gravityScale = 0;
-            blockRigid.velocity = new Vector2(-5f, 0);
+            blockRigid.velocity = new Vector2(-backgroundSpeed, 0);
         }
     }
     // Update is called once per frame
@@ -125,6 +114,22 @@ public class GameControl : MonoBehaviour
         else
         {
             return 0;
+        }
+    }
+    void changeLanguage()
+    {
+        if (lang == "tur")
+        {
+            strHighScore = Strings.highScoreTur;
+            strClick = Strings.clickToStartTur;
+            strGameOver = Strings.gameOverTur;
+
+        }
+        else if (lang == "eng")
+        {
+            strHighScore = Strings.highScoreEng;
+            strClick = Strings.clickToStartEng;
+            strGameOver = Strings.gameOverEng;
         }
     }
 }
