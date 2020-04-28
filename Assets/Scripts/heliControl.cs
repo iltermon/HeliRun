@@ -100,7 +100,7 @@ public class heliControl : MonoBehaviour
             if (score > GameControl.highscore)
             {
                 GameControl.highscore = score;
-                PlayerPrefs.SetInt("save", GameControl.highscore);
+                PlayerPrefs.SetInt("highScore", GameControl.highscore);
             }
         }
 
