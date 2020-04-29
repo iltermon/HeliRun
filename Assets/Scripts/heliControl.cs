@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class HeliControl : MonoBehaviour
+public class heliControl : MonoBehaviour
 {   
     Rigidbody2D helicopterRigid;
     public Sprite[] helicopterSprite;
@@ -100,12 +100,13 @@ public class HeliControl : MonoBehaviour
             }
             GetComponent<PolygonCollider2D>().enabled = false;
             GameControl.gameOver = true;
-            gameControl.GameOver();
             if (GameControl.score > GameControl.highscore)
             {
+                newHighScore=true;
                 GameControl.highscore = GameControl.score;
                 PlayerPrefs.SetInt("highScore", GameControl.highscore);
             }
+            gameControl.GameOver();
         }
     }
 }
