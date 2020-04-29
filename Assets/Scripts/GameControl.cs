@@ -32,12 +32,11 @@ public class GameControl : MonoBehaviour
     //TODO: STRINGLERI DÜZENLE
     //TODO: SES KAPAMA EKLE
     string strGameOver;
-    string lang;
+    public static bool lang;
+    public static bool buttonClick;
 
     void Start()
     {
-        
-
         gameOver = false;
         gameStarted = false;
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
@@ -48,31 +47,31 @@ public class GameControl : MonoBehaviour
         gameOverImage.gameObject.SetActive(false);
 
     }
-    void waitforInput()
+    void WaitforInput()
     {
-        if(gameStarted==false && getVertical() > 0)
+        if(gameStarted==false && GetVertical() > 0)
         {
             gameOver = false;
             gameStarted = true;
-            startGame();
+            StartGame();
             title.gameObject.SetActive(false);
             highscoreText.gameObject.SetActive(false);
             clickToStart.gameObject.SetActive(false);
             
         }
-        else if(gameStarted==true && getVertical()>0 && gameOver == true)
+        else if(gameStarted==true && GetVertical()>0 && gameOver == true)
         {
             SceneManager.LoadScene("scene1");
             Start();
         }
     }
-    void startGame()
+    void StartGame()
     {
         bgrigid1.velocity = new Vector2(-backgroundSpeed, 0);
         bgrigid2.velocity = new Vector2(-backgroundSpeed, 0);
         helicopter.GetComponent<Rigidbody2D>().simulated = true;
         size = background1.GetComponent<BoxCollider2D>().size.x;
-        heliControl.sounds[0].Play();
+        HeliControl.sounds[0].Play();
         
         for (int i = 0; i < blocks.Length; i++)
         {
@@ -85,7 +84,7 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        waitforInput();
+        WaitforInput();
         if(background1.transform.position.x <= -size)
         {
             background1.transform.position += new Vector3(size * 2, 0);
@@ -120,15 +119,15 @@ public class GameControl : MonoBehaviour
         }
         gameOverImage.gameObject.SetActive(true);
         clickToStart.gameObject.SetActive(true);
-        if (heliControl.newHighScore)
+        if (HeliControl.newHighScore)
         {
             //TODO: bunu test et.
             highscoreText.text = "New High Score";
         }
     }   
-    public static float getVertical()
+    public static float GetVertical()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !buttonClick)
         {
             return 1;
         }
@@ -137,20 +136,20 @@ public class GameControl : MonoBehaviour
             return 0;
         }
     }
-    void changeLanguage()
+    void ChangeLanguage()
     {
-        if (lang == "tur")
-        {
-            strHighScore = Strings.highScoreTur;
-            strClick = Strings.clickToStartTur;
-            strGameOver = Strings.gameOverTur;
+        //if (lang == "tur")
+        //{
+        //    strHighScore = Strings.highScoreTur;
+        //    strClick = Strings.clickToStartTur;
+        //    strGameOver = Strings.gameOverTur;
 
-        }
-        else if (lang == "eng")
-        {
-            strHighScore = Strings.highScoreEng;
-            strClick = Strings.clickToStartEng;
-            strGameOver = Strings.gameOverEng;
-        }
+        //}
+        //else if (lang == "eng")
+        //{
+        //    strHighScore = Strings.highScoreEng;
+        //    strClick = Strings.clickToStartEng;
+        //    strGameOver = Strings.gameOverEng;
+        //}
     }
 }

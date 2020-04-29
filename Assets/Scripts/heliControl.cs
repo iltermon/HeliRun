@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class heliControl : MonoBehaviour
+public class HeliControl : MonoBehaviour
 {   
     Rigidbody2D helicopterRigid;
     public Sprite[] helicopterSprite;
@@ -35,7 +35,7 @@ public class heliControl : MonoBehaviour
 
     void Animation()
     {
-        vertical=GameControl.getVertical();
+        vertical=GameControl.GetVertical();
         if (vertical>0)
         {
             timeLimit = 0.07F;
@@ -75,7 +75,7 @@ public class heliControl : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "point")
+        if (collision.gameObject.CompareTag("point"))
         {
             GameControl.score++;
             point_text.text = GameControl.score.ToString();
@@ -91,7 +91,7 @@ public class heliControl : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "block")
+        if (collision.gameObject.CompareTag("block"))
         {   
             if(!GameControl.gameOver)
             {
