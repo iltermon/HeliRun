@@ -14,7 +14,6 @@ public class heliControl : MonoBehaviour
     float vertical = 0f;
     public int speed = 10;
     public Text point_text;
-    
     public GameControl gameControl;
     public static AudioSource []sounds;
     void Start()
@@ -88,7 +87,6 @@ public class heliControl : MonoBehaviour
             GameControl.blocks[3].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
             GameControl.blocks[4].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
         }
-       
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

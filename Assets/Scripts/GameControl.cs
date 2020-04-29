@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
@@ -35,6 +36,8 @@ public class GameControl : MonoBehaviour
 
     void Start()
     {
+        gameOver = false;
+        gameStarted = false;
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
         bgrigid2 = background2.GetComponent<Rigidbody2D>();
         blocks = new GameObject[blockNumber];
@@ -45,11 +48,17 @@ public class GameControl : MonoBehaviour
     {
         if(gameStarted==false && getVertical() > 0)
         {
+            gameOver = false;
             gameStarted = true;
             startGame();
             title.gameObject.SetActive(false);
             highscoreText.gameObject.SetActive(false);
             clickToStart.gameObject.SetActive(false);
+        }
+        else if(gameStarted==true && getVertical()>0 && gameOver == true)
+        {
+            SceneManager.LoadScene("scene1");
+            Start();
         }
     }
     void startGame()

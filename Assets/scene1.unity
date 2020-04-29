@@ -2303,19 +2303,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db18b5ea2ef862f488df683d857066e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flags:
-  - {fileID: 21300000, guid: 27ec31dede51da34bbfaf7279594b94b, type: 3}
-  - {fileID: 21300000, guid: 610d47067aa6c2d43a243bb74b22ed40, type: 3}
   clickToStart: {fileID: 442529010}
   background1: {fileID: 1148834821}
   background2: {fileID: 1631358170}
   block: {fileID: 8825203377074619509, guid: 51798478aa4741548a3dd39cabd577ae, type: 3}
   blockNumber: 5
-  backgroundSpeed: 5
   title: {fileID: 1560211047}
   helicopter: {fileID: 6242083}
   highscoreText: {fileID: 645374019}
-  score: 0
 --- !u!4 &828801086
 Transform:
   m_ObjectHideFlags: 0
@@ -3276,8 +3271,8 @@ GameObject:
   - component: {fileID: 1392090521}
   - component: {fileID: 1392090525}
   - component: {fileID: 1392090524}
-  - component: {fileID: 1392090523}
   - component: {fileID: 1392090522}
+  - component: {fileID: 1392090523}
   m_Layer: 5
   m_Name: Language Button
   m_TagString: Untagged
@@ -3302,7 +3297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -28.600006, y: -16.399994}
+  m_AnchoredPosition: {x: -25, y: -14.9}
   m_SizeDelta: {x: 43.669983, y: 26.100006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1392090522
@@ -3318,8 +3313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flags:
-  - {fileID: 21300000, guid: 27ec31dede51da34bbfaf7279594b94b, type: 3}
-  - {fileID: 21300000, guid: 610d47067aa6c2d43a243bb74b22ed40, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1392090523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3356,7 +3351,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1392090524}
+  m_TargetGraphic: {fileID: 1560211047}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3370,7 +3365,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &1392090524
 MonoBehaviour:
   m_ObjectHideFlags: 0
