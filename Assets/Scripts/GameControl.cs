@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
-    
+    public Image gameOverImage;
     public Text clickToStart;
     public GameObject background1;
     public GameObject background2;
@@ -21,7 +21,7 @@ public class GameControl : MonoBehaviour
     public static Rigidbody2D bgrigid1;
     public static Rigidbody2D bgrigid2;
     public static Rigidbody2D blockRigid;
-    float reset_time = 0;
+    private float reset_time = 0;
     int counter = 0;
     private float size = 0;
     public static int score=0;
@@ -29,13 +29,15 @@ public class GameControl : MonoBehaviour
     public static bool gameStarted = false;
     string strHighScore;
     string strClick;
-//TODO: SES KAPAMA EKLE
-//TODO: GAME OVER ŞEYSİNİ EKLE
+    //TODO: STRINGLERI DÜZENLE
+    //TODO: SES KAPAMA EKLE
     string strGameOver;
     string lang;
 
     void Start()
     {
+        
+
         gameOver = false;
         gameStarted = false;
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
@@ -43,6 +45,8 @@ public class GameControl : MonoBehaviour
         blocks = new GameObject[blockNumber];
         highscore = PlayerPrefs.GetInt("highScore");
         highscoreText.text = strHighScore + highscore.ToString();
+        gameOverImage.gameObject.SetActive(false);
+
     }
     void waitforInput()
     {
@@ -54,6 +58,7 @@ public class GameControl : MonoBehaviour
             title.gameObject.SetActive(false);
             highscoreText.gameObject.SetActive(false);
             clickToStart.gameObject.SetActive(false);
+            
         }
         else if(gameStarted==true && getVertical()>0 && gameOver == true)
         {
@@ -112,6 +117,13 @@ public class GameControl : MonoBehaviour
             blocks[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             bgrigid1.velocity = Vector2.zero;
             bgrigid2.velocity = Vector2.zero;
+        }
+        gameOverImage.gameObject.SetActive(true);
+        clickToStart.gameObject.SetActive(true);
+        if (heliControl.newHighScore)
+        {
+            //TODO: bunu test et.
+            highscoreText.text = "New High Score";
         }
     }   
     public static float getVertical()

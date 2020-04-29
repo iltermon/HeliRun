@@ -16,6 +16,7 @@ public class heliControl : MonoBehaviour
     public Text point_text;
     public GameControl gameControl;
     public static AudioSource []sounds;
+    public static bool newHighScore=false;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
