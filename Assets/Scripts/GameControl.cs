@@ -24,12 +24,12 @@ public class GameControl : MonoBehaviour
     private float reset_time = 0;
     int counter = 0;
     private float size = 0;
-    public static int score=0;
-    public static int highscore;
+    public static int score=0; 
+    public static int highscore; 
     public static bool gameStarted = false;
     void Start()
     {
-        score = 0;
+        score = 0; 
         heliControl.newHighScore = false;
         gameOver = false;
         gameStarted = false;
@@ -91,7 +91,7 @@ public class GameControl : MonoBehaviour
         {
             reset_time = 0;
             float yAxis = Random.Range(-8.44f, -1.91f);
-            blocks[counter].transform.position = new Vector3(25f, yAxis);
+            blocks[counter].transform.position = new Vector3(8f, yAxis);
             counter++;
             if (counter >= blocks.Length)
             {
