@@ -63,7 +63,7 @@ public class GameControl : MonoBehaviour
         bgrigid1.velocity = new Vector2(-backgroundSpeed, 0);
         bgrigid2.velocity = new Vector2(-backgroundSpeed, 0);
         helicopter.GetComponent<Rigidbody2D>().simulated = true;
-        size = background1.GetComponent<BoxCollider2D>().size.x;
+       size = background1.GetComponent<BoxCollider2D>().size.x;
         heliControl.sounds[0].Play();
         
         for (int i = 0; i < blocks.Length; i++)
@@ -92,6 +92,8 @@ public class GameControl : MonoBehaviour
             reset_time = 0;
             float yAxis = Random.Range(-8.44f, -1.91f);
             blocks[counter].transform.position = new Vector3(8f, yAxis);
+            float z = Random.Range(246f, 290f);
+            blocks[counter].transform.rotation = Quaternion.Euler(0, 0, z);
             counter++;
             if (counter >= blocks.Length)
             {
