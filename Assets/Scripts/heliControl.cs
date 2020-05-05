@@ -67,7 +67,7 @@ public class heliControl : MonoBehaviour
         Vector2 vec = new Vector2(0, vertical);
         helicopterRigid.AddForce(vec * speed);
         }
-        else if(transform.position.y <= -7.77f){ 
+        else if(transform.position.y <= -6.98f){ 
             helicopterRigid.velocity = Vector2.zero;
             helicopterRigid.gravityScale = 0;
         }
