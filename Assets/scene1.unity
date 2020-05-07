@@ -220,7 +220,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6242083}
   m_LocalRotation: {x: -0, y: -0, z: 0.002128322, w: 0.99999774}
-  m_LocalPosition: {x: -8.62, y: -0.18, z: 0}
+  m_LocalPosition: {x: -8, y: -0.18, z: 0}
   m_LocalScale: {x: 0.85157216, y: 0.921898, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1131,7 +1131,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: 4.4000244}
+  m_AnchoredPosition: {x: 0, y: 4.3999023}
   m_SizeDelta: {x: 0.000061035156, y: -201.65723}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &370292278
@@ -1359,8 +1359,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 18.4, y: -117.3}
-  m_SizeDelta: {x: 389.8, y: 115.9}
+  m_AnchoredPosition: {x: -5, y: -81.4}
+  m_SizeDelta: {x: 424.1435, y: 44.090843}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &442529010
 MonoBehaviour:
@@ -1382,8 +1382,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_Font: {fileID: 12800000, guid: 285d8382225e96743a7abb7f94e38e47, type: 3}
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1867,7 +1867,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 285d8382225e96743a7abb7f94e38e47, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -2005,7 +2005,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 156.52, y: -66.4}
+  m_AnchoredPosition: {x: 156.52002, y: -66.3999}
   m_SizeDelta: {x: 299.75, y: 123.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &709739067
@@ -2028,7 +2028,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 285d8382225e96743a7abb7f94e38e47, type: 3}
     m_FontSize: 72
     m_FontStyle: 0
     m_BestFit: 0
@@ -3136,7 +3136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187162709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.01, y: -0.05, z: -10}
+  m_LocalPosition: {x: -4.66, y: -0.05, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
