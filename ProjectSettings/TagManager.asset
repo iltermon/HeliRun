@@ -7,6 +7,8 @@ TagManager:
   - point
   - block
   - gameControlScript
+  - top
+  - ground
   layers:
   - Default
   - TransparentFX
