@@ -161,6 +161,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 142fd5b9f6742e44887d5be39cf5b526, type: 3}
   speed: 10
   point_text: {fileID: 709739067}
+  gameControl: {fileID: 0}
 --- !u!212 &6242085
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -624,7 +625,7 @@ GameObject:
   - component: {fileID: 24328592}
   m_Layer: 0
   m_Name: Proje - Drawing 17885512782639791612 (1)
-  m_TagString: Untagged
+  m_TagString: top
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -905,7 +906,7 @@ GameObject:
   - component: {fileID: 127993764}
   m_Layer: 0
   m_Name: Proje - Drawing 17885512782639791612 (1)
-  m_TagString: Untagged
+  m_TagString: top
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1510,7 +1511,7 @@ GameObject:
   - component: {fileID: 467364085}
   m_Layer: 0
   m_Name: Proje - Drawing 17885512782639791612 (1)
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2405,7 +2406,7 @@ MonoBehaviour:
   clickToStart: {fileID: 442529010}
   background1: {fileID: 1148834821}
   background2: {fileID: 1631358170}
-  block: {fileID: 8825203377074619509, guid: 51798478aa4741548a3dd39cabd577ae, type: 3}
+  block: {fileID: 5319143688378928028, guid: ae24ac2a6f840424c896d9a98b3d8139, type: 3}
   blockNumber: 5
   title: {fileID: 1560211047}
   helicopter: {fileID: 6242083}
@@ -2437,7 +2438,7 @@ GameObject:
   - component: {fileID: 954063959}
   m_Layer: 0
   m_Name: Proje - Drawing 17885512782639791612 (1)
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2773,7 +2774,7 @@ GameObject:
   - component: {fileID: 1150181126}
   m_Layer: 0
   m_Name: Proje - Drawing 17885512782639791612 (1)
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3264,7 +3265,7 @@ GameObject:
   - component: {fileID: 1201366954}
   m_Layer: 0
   m_Name: Proje - Drawing 17885512782639791612 (1)
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3800,7 +3801,7 @@ GameObject:
   - component: {fileID: 1633487290}
   m_Layer: 0
   m_Name: Proje - Drawing 17885512782639791612 (1)
-  m_TagString: Untagged
+  m_TagString: top
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4003,7 +4004,7 @@ GameObject:
   - component: {fileID: 1916770445}
   m_Layer: 0
   m_Name: Proje - Drawing 17885512782639791612 (1)
-  m_TagString: Untagged
+  m_TagString: top
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

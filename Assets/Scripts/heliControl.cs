@@ -67,13 +67,10 @@ public class heliControl : MonoBehaviour
         Vector2 vec = new Vector2(0, vertical);
         helicopterRigid.AddForce(vec * speed);
         }
-        else if(transform.position.y <= -6.98f){ 
-            helicopterRigid.velocity = Vector2.zero;
-            helicopterRigid.gravityScale = 0;
-        }
+
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("point"))
         {
@@ -88,17 +85,18 @@ public class heliControl : MonoBehaviour
             GameControl.blocks[3].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
             GameControl.blocks[4].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
         }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("block"))
-        {   
-            if(!GameControl.gameOver)
+        if (collision.gameObject.CompareTag("block") || collision.gameObject.CompareTag("top") || collision.gameObject.CompareTag("ground"))
+        {
+            if (collision.gameObject.CompareTag("ground"))
+            {
+                helicopterRigid.velocity = Vector2.zero;
+                helicopterRigid.gravityScale = 0;
+            }
+            if (!GameControl.gameOver)
             {
                 sounds[0].Pause();
                 sounds[1].Play();
             }
-            GetComponent<PolygonCollider2D>().enabled = false;
             GameControl.gameOver = true;
             if (GameControl.score > GameControl.highscore)
             {
