@@ -161,7 +161,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 142fd5b9f6742e44887d5be39cf5b526, type: 3}
   speed: 10
   point_text: {fileID: 709739067}
-  gameControl: {fileID: 828801085}
 --- !u!212 &6242085
 SpriteRenderer:
   m_ObjectHideFlags: 0

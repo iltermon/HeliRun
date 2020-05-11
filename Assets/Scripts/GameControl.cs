@@ -27,6 +27,8 @@ public class GameControl : MonoBehaviour
     public static int score=0; 
     public static int highscore; 
     public static bool gameStarted = false;
+
+
     void Start()
     {
         score = 0; 
@@ -50,7 +52,6 @@ public class GameControl : MonoBehaviour
             title.gameObject.SetActive(false);
             highscoreText.gameObject.SetActive(false);
             clickToStart.gameObject.SetActive(false);
-            
         }
         else if(gameStarted==true && GetVertical()>0 && gameOver == true)
         {
@@ -68,7 +69,7 @@ public class GameControl : MonoBehaviour
         
         for (int i = 0; i < blocks.Length; i++)
         {
-            blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.Euler(0,0,270));
+            blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.Euler(0,0,0));
             blockRigid = blocks[i].AddComponent<Rigidbody2D>();
             blockRigid.gravityScale = 0;
             blockRigid.velocity = new Vector2(-backgroundSpeed, 0);
@@ -90,10 +91,8 @@ public class GameControl : MonoBehaviour
         if (reset_time > 2f && gameOver==false && gameStarted==true)
         {
             reset_time = 0;
-            float yAxis = Random.Range(-8.44f, -1.91f);
-            blocks[counter].transform.position = new Vector3(8f, yAxis);
-            float z = Random.Range(246f, 290f);
-            blocks[counter].transform.rotation = Quaternion.Euler(0, 0, z);
+            float yAxis = Random.Range(13.29f, 19.47f);
+            blocks[counter].transform.position = new Vector3(13.47f, yAxis);
             counter++;
             if (counter >= blocks.Length)
             {
