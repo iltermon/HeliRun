@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 
@@ -67,7 +68,6 @@ public class heliControl : MonoBehaviour
         Vector2 vec = new Vector2(0, vertical);
         helicopterRigid.AddForce(vec * speed);
         }
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

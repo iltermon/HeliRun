@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
+    public Text newRecord;
     public Button pauseButton;
     public Image gameOverImage;
     public Text clickToStart;
@@ -29,7 +30,8 @@ public class GameControl : MonoBehaviour
     public static int highscore; 
     public static bool gameStarted = false;
     public static bool paused = false;
-
+    float _time = 0;
+    public Text yourScore;
     void Start()
     {
         score = 0; 
@@ -43,6 +45,8 @@ public class GameControl : MonoBehaviour
         highscoreText.text = "High Score: " + highscore.ToString();
         gameOverImage.gameObject.SetActive(false);
         pauseButton.gameObject.SetActive(false);
+        newRecord.gameObject.SetActive(false);
+        yourScore.gameObject.SetActive(false);
     }
     void WaitforInput()
     {
@@ -81,12 +85,20 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        _time += Time.deltaTime;
+        if (score == highscore+1)
+        {
+            newRecord.gameObject.SetActive(true);
+        }else if(_time > 3 && newRecord.IsActive())
+        {
+            newRecord.gameObject.SetActive(false);
+        }
         if (Application.platform == RuntimePlatform.Android)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-
-                Application.Quit();
+                AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+                activity.Call<bool>("moveTaskToBack", true);
             }
         }
         WaitforInput();
@@ -122,10 +134,21 @@ public class GameControl : MonoBehaviour
         }
         gameOverImage.gameObject.SetActive(true);
         clickToStart.gameObject.SetActive(true);
+        pauseButton.gameObject.SetActive(false);
+        heliControl.vertical=0;
         if (heliControl.newHighScore)
         {
             highscoreText.text = "New High Score";
+            yourScore.text = "Your Score: " + score.ToString();
             highscoreText.gameObject.SetActive(true);
+            yourScore.gameObject.SetActive(true);
+        }
+        else
+        {
+            highscoreText.text = "High Score: " + highscore.ToString();
+            yourScore.text = "Your Score: " + score.ToString();
+            highscoreText.gameObject.SetActive(true);
+            yourScore.gameObject.SetActive(true);
         }
     }   
 
