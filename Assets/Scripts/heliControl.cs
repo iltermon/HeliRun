@@ -11,7 +11,7 @@ public class heliControl : MonoBehaviour
     SpriteRenderer spriteRenderer;
     float _time = 0;
     float timeLimit = 0.1F;
-    float vertical = 0f;
+    public static float vertical = 0f;
     public int speed = 10;
     public Text point_text;
     public GameControl gameControl;
@@ -23,6 +23,7 @@ public class heliControl : MonoBehaviour
         helicopterRigid = GetComponent<Rigidbody2D>();
         gameControl = GameObject.FindGameObjectWithTag("gameControlScript").GetComponent<GameControl>();
         sounds = GetComponents<AudioSource>();
+        vertical = 0;
     }
 
     void Update()
@@ -35,7 +36,6 @@ public class heliControl : MonoBehaviour
 
     void Animation()
     {
-        vertical=GameControl.GetVertical();
         if (vertical>0)
         {
             timeLimit = 0.07F;

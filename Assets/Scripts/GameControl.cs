@@ -27,7 +27,7 @@ public class GameControl : MonoBehaviour
     public static int score=0; 
     public static int highscore; 
     public static bool gameStarted = false;
-
+    
 
     void Start()
     {
@@ -44,7 +44,7 @@ public class GameControl : MonoBehaviour
     }
     void WaitforInput()
     {
-        if(gameStarted==false && GetVertical() > 0)
+        if(gameStarted==false && heliControl.vertical > 0)
         {
             gameOver = false;
             gameStarted = true;
@@ -53,7 +53,7 @@ public class GameControl : MonoBehaviour
             highscoreText.gameObject.SetActive(false);
             clickToStart.gameObject.SetActive(false);
         }
-        else if(gameStarted==true && GetVertical()>0 && gameOver == true)
+        else if(gameStarted==true && heliControl.vertical>0 && gameOver == true)
         {
             SceneManager.LoadScene("scene1");
             Start();
@@ -78,6 +78,14 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+
+                Application.Quit();
+            }
+        }
         WaitforInput();
         if(background1.transform.position.x <= -size)
         {
@@ -117,16 +125,5 @@ public class GameControl : MonoBehaviour
             highscoreText.gameObject.SetActive(true);
         }
     }   
-    public static float GetVertical()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
 
 }
