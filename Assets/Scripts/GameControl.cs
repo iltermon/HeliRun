@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
+    public Button pauseButton;
     public Image gameOverImage;
     public Text clickToStart;
     public GameObject background1;
@@ -27,7 +28,7 @@ public class GameControl : MonoBehaviour
     public static int score=0; 
     public static int highscore; 
     public static bool gameStarted = false;
-    
+    public static bool paused = false;
 
     void Start()
     {
@@ -41,6 +42,7 @@ public class GameControl : MonoBehaviour
         highscore = PlayerPrefs.GetInt("highScore");
         highscoreText.text = "High Score: " + highscore.ToString();
         gameOverImage.gameObject.SetActive(false);
+        pauseButton.gameObject.SetActive(false);
     }
     void WaitforInput()
     {
@@ -61,10 +63,11 @@ public class GameControl : MonoBehaviour
     }
     void StartGame()
     {
+        pauseButton.gameObject.SetActive(true);
         bgrigid1.velocity = new Vector2(-backgroundSpeed, 0);
         bgrigid2.velocity = new Vector2(-backgroundSpeed, 0);
         helicopter.GetComponent<Rigidbody2D>().simulated = true;
-       size = background1.GetComponent<BoxCollider2D>().size.x;
+        size = background1.GetComponent<BoxCollider2D>().size.x;
         heliControl.sounds[0].Play();
         
         for (int i = 0; i < blocks.Length; i++)
