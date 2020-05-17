@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class ButtonControl : MonoBehaviour
 {
     public Button resumeButton;
+
+
     public void GetVertical()
     {
         heliControl.vertical = 1;
-        
+
     }
     public void ReleaseVertical()
     {
@@ -18,12 +20,13 @@ public class ButtonControl : MonoBehaviour
     }
     public void PauseGame()
     {
-        if(GameControl.paused)
+        if (GameControl.paused)
         {
             Time.timeScale = 1;
             GameControl.paused = false;
             resumeButton.gameObject.SetActive(false);
             heliControl.sounds[0].Play();
+
         }
         else
         {
@@ -33,5 +36,35 @@ public class ButtonControl : MonoBehaviour
             heliControl.sounds[0].Pause();
         }
     }
+    public void MuteGame()
+    {
+        if (GameControl.muted)
+        {
+            GameControl.muted = false;
+            for (int i = 0; i < heliControl.sounds.Length; i++)
+            {
+                heliControl.sounds[i].mute = true;
+            }
+        }
+        else if (!GameControl.muted)
+        { 
+            GameControl.muted = true;
+            for (int i = 0; i < heliControl.sounds.Length; i++)
+            {
+                heliControl.sounds[i].mute = false;
+            }
+        }
+
+    }
+    //public void SoundCheck()
+    //{
+    //    sound = PlayerPrefs.GetString("Sound"); 
+    //    if (sound == "enabled") 
+    //    { isMuted = false; } 
+    //    else if (sound == "muted") 
+    //    { isMuted = true; }
+    //    on.gameObject.SetActive(isMuted);
+    //    off.gameObject.SetActive(!isMuted);
+    //}
 }
     

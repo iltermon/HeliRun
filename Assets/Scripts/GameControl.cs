@@ -32,6 +32,8 @@ public class GameControl : MonoBehaviour
     public static bool paused = false;
     float _time = 0;
     public Text yourScore;
+    public static bool muted;
+
     void Start()
     {
         score = 0; 
@@ -47,6 +49,7 @@ public class GameControl : MonoBehaviour
         pauseButton.gameObject.SetActive(false);
         newRecord.gameObject.SetActive(false);
         yourScore.gameObject.SetActive(false);
+
     }
     void WaitforInput()
     {
@@ -150,6 +153,7 @@ public class GameControl : MonoBehaviour
             highscoreText.gameObject.SetActive(true);
             yourScore.gameObject.SetActive(true);
         }
-    }   
+    }
+    
 
 }
