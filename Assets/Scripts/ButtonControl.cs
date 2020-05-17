@@ -8,7 +8,6 @@ public class ButtonControl : MonoBehaviour
 {
     public Button resumeButton;
 
-
     public void GetVertical()
     {
         heliControl.vertical = 1;
@@ -56,15 +55,5 @@ public class ButtonControl : MonoBehaviour
         }
 
     }
-    //public void SoundCheck()
-    //{
-    //    sound = PlayerPrefs.GetString("Sound"); 
-    //    if (sound == "enabled") 
-    //    { isMuted = false; } 
-    //    else if (sound == "muted") 
-    //    { isMuted = true; }
-    //    on.gameObject.SetActive(isMuted);
-    //    off.gameObject.SetActive(!isMuted);
-    //}
 }
     
