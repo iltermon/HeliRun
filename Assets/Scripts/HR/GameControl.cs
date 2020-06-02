@@ -64,8 +64,9 @@ public class GameControl : MonoBehaviour
         }
         else if(gameStarted==true && heliControl.vertical>0 && gameOver == true)
         {
-            SceneManager.LoadScene("game_scene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Start();
+        
         }
     }
     void StartGame()
