@@ -272,6 +272,24 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 954911490, guid: 87a0119eefb786341b02788c893882fb, type: 3}
+      propertyPath: cave1
+      value: 
+      objectReference: {fileID: 1148834821}
+    - target: {fileID: 954911490, guid: 87a0119eefb786341b02788c893882fb, type: 3}
+      propertyPath: cave2
+      value: 
+      objectReference: {fileID: 1631358170}
+    - target: {fileID: 82676942645884705, guid: 87a0119eefb786341b02788c893882fb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.519
+      objectReference: {fileID: 0}
+    - target: {fileID: 82676942645884705, guid: 87a0119eefb786341b02788c893882fb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8877829132861632201, guid: 87a0119eefb786341b02788c893882fb,
         type: 3}
       propertyPath: m_Name
@@ -334,14 +352,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8877829132861632206, guid: 87a0119eefb786341b02788c893882fb,
         type: 3}
-      propertyPath: gameControl
-      value: 
-      objectReference: {fileID: 828801085}
-    - target: {fileID: 8877829132861632206, guid: 87a0119eefb786341b02788c893882fb,
-        type: 3}
       propertyPath: point_text
       value: 
       objectReference: {fileID: 709739067}
+    - target: {fileID: 8877829132861632206, guid: 87a0119eefb786341b02788c893882fb,
+        type: 3}
+      propertyPath: gameControl
+      value: 
+      objectReference: {fileID: 828801085}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87a0119eefb786341b02788c893882fb, type: 3}
 --- !u!1 &24328590
@@ -2048,7 +2066,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &818997947
 GameObject:
@@ -2284,6 +2302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db18b5ea2ef862f488df683d857066e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yourScore: {fileID: 853335943}
   newRecord: {fileID: 1005444420}
   pauseButton: {fileID: 5324930}
   gameOverImage: {fileID: 741541044}
@@ -2295,7 +2314,6 @@ MonoBehaviour:
   title: {fileID: 1560211047}
   helicopter: {fileID: 954911481}
   highscoreText: {fileID: 645374019}
-  yourScore: {fileID: 853335943}
 --- !u!4 &828801086
 Transform:
   m_ObjectHideFlags: 0
@@ -2988,7 +3006,7 @@ GameObject:
   - component: {fileID: 1148834824}
   - component: {fileID: 1148834825}
   m_Layer: 0
-  m_Name: cave (1)
+  m_Name: cave_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3068,7 +3086,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148834821}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -4015,7 +4033,7 @@ GameObject:
   - component: {fileID: 1631358171}
   - component: {fileID: 1631358174}
   m_Layer: 0
-  m_Name: cave (2)
+  m_Name: cave_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4028,7 +4046,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631358170}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -4112,7 +4130,7 @@ Transform:
   - {fileID: 1986270906}
   - {fileID: 818997948}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1631358174
 Rigidbody2D:
@@ -4375,7 +4393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -108.01999, y: -37.570007}
+  m_AnchoredPosition: {x: -108.01999, y: -37.569946}
   m_SizeDelta: {x: 68.0314, y: 76.862305}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1658875260
@@ -4992,7 +5010,7 @@ RectTransform:
   - {fileID: 853335942}
   - {fileID: 1658875259}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

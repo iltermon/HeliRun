@@ -6,6 +6,12 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
+    public static int score = 0;
+    public static int highscore;
+    public static bool gameStarted = false;
+    public static bool paused = false;
+    public Text yourScore;
+    public static bool muted;
     public Text newRecord;
     public Button pauseButton;
     public Image gameOverImage;
@@ -24,15 +30,10 @@ public class GameControl : MonoBehaviour
     public static Rigidbody2D bgrigid2;
     public static Rigidbody2D blockRigid;
     private float reset_time = 0;
-    int counter = 0;
+    private int counter = 0;
     private float size = 0;
-    public static int score=0; 
-    public static int highscore; 
-    public static bool gameStarted = false;
-    public static bool paused = false;
     float _time = 0;
-    public Text yourScore;
-    public static bool muted;
+    
 
     void Start()
     {
@@ -62,7 +63,7 @@ public class GameControl : MonoBehaviour
             highscoreText.gameObject.SetActive(false);
             clickToStart.gameObject.SetActive(false);
         }
-        else if(gameStarted==true && heliControl.vertical>0 && gameOver == true)
+        else if(gameStarted==true && heliControl.vertical>0 && gameOver == true && SceneManager.GetActiveScene().name == "game_scene")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Start();
@@ -77,14 +78,8 @@ public class GameControl : MonoBehaviour
         helicopter.GetComponent<Rigidbody2D>().simulated = true;
         size = background1.GetComponent<BoxCollider2D>().size.x;
         heliControl.sounds[0].Play();
+        CreateBlocks();
         
-        for (int i = 0; i < blocks.Length; i++)
-        {
-            blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.Euler(0,0,0));
-            blockRigid = blocks[i].AddComponent<Rigidbody2D>();
-            blockRigid.gravityScale = 0;
-            blockRigid.velocity = new Vector2(-backgroundSpeed, 0);
-        }
     }
     // Update is called once per frame
     void Update()
@@ -127,32 +122,45 @@ public class GameControl : MonoBehaviour
             }
         }
     }
-    public void GameOver()
+    public void CreateBlocks()
     {
-        helicopter.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         for (int i = 0; i < blocks.Length; i++)
         {
-            blocks[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            bgrigid1.velocity = Vector2.zero;
-            bgrigid2.velocity = Vector2.zero;
+            blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.Euler(0, 0, 0));
+            blockRigid = blocks[i].AddComponent<Rigidbody2D>();
+            blockRigid.gravityScale = 0;
+            blockRigid.velocity = new Vector2(-backgroundSpeed, 0);
         }
-        gameOverImage.gameObject.SetActive(true);
-        clickToStart.gameObject.SetActive(true);
-        pauseButton.gameObject.SetActive(false);
-        heliControl.vertical=0;
-        if (heliControl.newHighScore)
+    }
+    public void GameOver()
+    {
+        if (SceneManager.GetActiveScene().name == "game_scene")
         {
-            highscoreText.text = "New High Score";
-            yourScore.text = "Your Score: " + score.ToString();
-            highscoreText.gameObject.SetActive(true);
-            yourScore.gameObject.SetActive(true);
-        }
-        else
-        {
-            highscoreText.text = "High Score: " + highscore.ToString();
-            yourScore.text = "Your Score: " + score.ToString();
-            highscoreText.gameObject.SetActive(true);
-            yourScore.gameObject.SetActive(true);
+            helicopter.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            for (int i = 0; i < blocks.Length; i++)
+            {
+                blocks[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                bgrigid1.velocity = Vector2.zero;
+                bgrigid2.velocity = Vector2.zero;
+            }
+            gameOverImage.gameObject.SetActive(true);
+            clickToStart.gameObject.SetActive(true);
+            pauseButton.gameObject.SetActive(false);
+            heliControl.vertical = 0;
+            if (heliControl.newHighScore)
+            {
+                highscoreText.text = "New High Score";
+                yourScore.text = "Your Score: " + score.ToString();
+                highscoreText.gameObject.SetActive(true);
+                yourScore.gameObject.SetActive(true);
+            }
+            else
+            {
+                highscoreText.text = "High Score: " + highscore.ToString();
+                yourScore.text = "Your Score: " + score.ToString();
+                highscoreText.gameObject.SetActive(true);
+                yourScore.gameObject.SetActive(true);
+            }
         }
     }
     

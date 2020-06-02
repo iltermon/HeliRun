@@ -11,24 +11,18 @@ public class AI_Trainer : MonoBehaviour
 	AI_DriveController driveController;
 	Transform raycastPoint;
 	RaycastHit2D[] sensors;
-	GameObject environments;
-	GameObject[] lines;
     public Material lineRendererMaterial;
 	public GameObject cave1;
 	public GameObject cave2;
-	
 	Vector3 startPosition;
 	Quaternion startRotation;
-	
 	Vector3 currCarPos;
 	Vector3 lastCarPos;
 	public float totalDist;
 	public float timePassed;
-
 	public float timeScale = 1f;
-
-	float rayDist = 10f;
-
+    readonly float rayDist = 10f;
+	int i = 0;
 	// Use this for initialization
 	void Start ()
 	{
@@ -41,10 +35,10 @@ public class AI_Trainer : MonoBehaviour
 		currNN = population.Next();
 	}
 
-    public void NewGenome()
-    {
-        OnCollisionEnter();
-    }
+    //public void NewGenome()
+    //{
+    //    OnTriggerEnter2D();
+    //}
 
     public void ChangeSpeed()
     {
@@ -57,23 +51,18 @@ public class AI_Trainer : MonoBehaviour
         else if (timeScale == 10f)
             timeScale = 1f;
     }
-
 	// Update is called once per frame
 	void Update ()
 	{
-
+		float forward, up, down, vel;
 		Time.timeScale = timeScale;
-
 		sensors = new RaycastHit2D[3];
-
 		sensors[0] = Physics2D.Raycast(raycastPoint.position, raycastPoint.up,rayDist);
 		sensors[1] = Physics2D.Raycast(raycastPoint.position, raycastPoint.forward, rayDist);
 		sensors[2] = Physics2D.Raycast(raycastPoint.position, -raycastPoint.up, rayDist);
 		Debug.DrawLine(raycastPoint.position, sensors[2].point);
 		Debug.DrawLine(raycastPoint.position, sensors[0].point);
 		Debug.DrawLine(raycastPoint.position, sensors[1].point);
-
-		float forward, up, down;
 		forward = down = up = rayDist;
 		if (sensors[0].collider != cave1.GetComponent<BoxCollider2D>() || sensors[0].collider != cave2.GetComponent<BoxCollider2D>() || !sensors[1].collider.CompareTag("point")) 
 		{ 
@@ -84,8 +73,7 @@ public class AI_Trainer : MonoBehaviour
 		if (sensors[1].collider != cave1.GetComponent<BoxCollider2D>() || sensors[1].collider != cave2.GetComponent<BoxCollider2D>() || !sensors[1].collider.CompareTag("point"))
 		{ 
 			forward = sensors[1].distance;
-			sensors[1].collider.tag.ToString();
-			Debug.Log(sensors[1].collider.tag.ToString());
+			
 		}
 
 		if (sensors[2].collider != cave1.GetComponent<BoxCollider2D>() || sensors[2].collider != cave2.GetComponent<BoxCollider2D>() || !sensors[1].collider.CompareTag("point"))
@@ -93,15 +81,16 @@ public class AI_Trainer : MonoBehaviour
 			down = sensors[2].distance;
 
 		}
-
+		vel = GetComponent<Rigidbody2D>().velocity[1];
 		currNN.input.matrix[0, 0] = (2f / rayDist) * up - 1f;
 		currNN.input.matrix[1, 0] = (2f / rayDist) * forward - 1f;
 		currNN.input.matrix[2, 0] = (2f / rayDist) * down - 1f;
-		currNN.input.matrix[3, 0] = GetComponent<Rigidbody2D>().velocity[1];
+
+		currNN.input.matrix[3, 0] = (2f/rayDist) * vel - 1f ;
 		currNN.FeedForward();
 
 
-		//heliControl.vertical = currNN.output.matrix[0, 0];
+		heliControl.vertical = currNN.output.matrix[0, 0];
 
 		currCarPos = transform.position;
 		totalDist += Vector3.Distance(currCarPos, lastCarPos);
@@ -111,24 +100,25 @@ public class AI_Trainer : MonoBehaviour
 
 	}
 
-	void OnCollisionEnter()
+	void OnTriggerEnter2D(Collider2D collision)
 	{
-		//population.SetFitnessOfCurrIndividual(totalDist, timePassed);
-		currNN = population.Next();
-		ResetCarPosition();
+		if (!collision.CompareTag("point"))
+		{
+			Debug.Log(i);	
+			population.SetFitnessOfCurrIndividual(GameControl.score);
+			currNN = population.Next();
+			i++;
+			ResetCarPosition(); 
+		}
 	}
 
 	void ResetCarPosition()
 	{
 		transform.position = startPosition;
-		transform.rotation = startRotation;
 		currCarPos = startPosition;
 		lastCarPos = startPosition;
-
-		driveController.SetMotorTorque(0f);
-        driveController.GetComponent<Rigidbody>().velocity = Vector3.zero;
-		totalDist = 0f;
-		timePassed = 0f;
+		GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+		GameControl.score = 0;
 	}
 
 	//void DrawSensorLines()
@@ -217,32 +207,32 @@ public class AI_Trainer : MonoBehaviour
 
 	//}
 		
-	void DrawLine(Vector3 start, Vector3 end, Color color, int lineIndex)
-	{
-		GameObject line = new GameObject();
-		line.name = "Line " + lineIndex;
-		line.transform.SetParent(environments.transform);
+	//void DrawLine(Vector3 start, Vector3 end, Color color, int lineIndex)
+	//{
+	//	GameObject line = new GameObject();
+	//	line.name = "Line " + lineIndex;
+	//	line.transform.SetParent(environments.transform);
 
-		line.transform.position = start;
-		line.AddComponent<LineRenderer>();
-		LineRenderer lr = line.GetComponent<LineRenderer>();
-        lr.material = lineRendererMaterial; //new Material(Shader.Find("Particles/Priority Alpha Blended"));
-		lr.startColor = color;
-		lr.endColor = color;
-		lr.startWidth = 0.05f;
-		lr.endWidth = 0.05f;
-		lr.SetPosition(0, start);
-		lr.SetPosition(1, end);
+	//	line.transform.position = start;
+	//	line.AddComponent<LineRenderer>();
+	//	LineRenderer lr = line.GetComponent<LineRenderer>();
+ //       lr.material = lineRendererMaterial; //new Material(Shader.Find("Particles/Priority Alpha Blended"));
+	//	lr.startColor = color;
+	//	lr.endColor = color;
+	//	lr.startWidth = 0.05f;
+	//	lr.endWidth = 0.05f;
+	//	lr.SetPosition(0, start);
+	//	lr.SetPosition(1, end);
 
-		lines[lineIndex] = line;
-	}
+	//	lines[lineIndex] = line;
+	//}
 
-	void UpdateLine(Vector3 start, Vector3 end, Color color, int lineIndex)
-	{
-		LineRenderer lr = lines[lineIndex].GetComponent<LineRenderer>();
-		lr.startColor = color;
-		lr.endColor = color;
-		lr.SetPosition(0, start);
-		lr.SetPosition(1, end);
-	}
+	//void UpdateLine(Vector3 start, Vector3 end, Color color, int lineIndex)
+	//{
+	//	LineRenderer lr = lines[lineIndex].GetComponent<LineRenderer>();
+	//	lr.startColor = color;
+	//	lr.endColor = color;
+	//	lr.SetPosition(0, start);
+	//	lr.SetPosition(1, end);
+	//}
 }
