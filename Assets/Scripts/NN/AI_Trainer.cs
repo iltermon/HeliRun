@@ -13,8 +13,9 @@ public class AI_Trainer : MonoBehaviour
 	RaycastHit[] sensors;
 	GameObject environments;
 	GameObject[] lines;
-	public Material lineRendererMaterial;
-
+    public Material lineRendererMaterial;
+	GameObject cave1;
+	GameObject cave2;
 	Vector3 startPosition;
 	Quaternion startRotation;
 
@@ -28,13 +29,11 @@ public class AI_Trainer : MonoBehaviour
 	float rayDist = 11;
 
 	// Use this for initialization
-	void Start()
+	void Start ()
 	{
-		population = new Population(10, new int[] { 5, 200, 2 }, 1f);
+		population = new Population(10, new int[]{5, 200, 2}, 1f);
 
-		raycastPoint = transform.Find("RaycastPoint");
-		environments = GameObject.Find("Environment");
-		driveController = GetComponent<AI_DriveController>();
+		raycastPoint = transform.Find("RaycastPoint");	
 
 		startPosition = transform.position;
 		startRotation = transform.rotation;
@@ -44,68 +43,59 @@ public class AI_Trainer : MonoBehaviour
 		currNN = population.Next();
 	}
 
-	public void NewGenome()
-	{
-		OnCollisionEnter();
-	}
+    public void NewGenome()
+    {
+        OnCollisionEnter();
+    }
 
-	public void ChangeSpeed()
-	{
-		if (timeScale == 1f)
-			timeScale = 2f;
-		else if (timeScale == 2f)
-			timeScale = 5f;
-		else if (timeScale == 5f)
-			timeScale = 10f;
-		else if (timeScale == 10f)
-			timeScale = 1f;
-	}
+    public void ChangeSpeed()
+    {
+        if (timeScale == 1f)
+            timeScale = 2f;
+        else if (timeScale == 2f)
+            timeScale = 5f;
+        else if (timeScale == 5f)
+            timeScale = 10f;
+        else if (timeScale == 10f)
+            timeScale = 1f;
+    }
 
 	// Update is called once per frame
-	void Update()
+	void Update ()
 	{
 		Time.timeScale = timeScale;
 
-		sensors = new RaycastHit[5];
+		sensors = new RaycastHit[3];
 
-		Physics.Raycast(raycastPoint.position, raycastPoint.forward, out sensors[0], rayDist);
-		Physics.Raycast(raycastPoint.position, raycastPoint.forward - raycastPoint.right, out sensors[3], rayDist);
-		Physics.Raycast(raycastPoint.position, raycastPoint.forward + raycastPoint.right, out sensors[4], rayDist);
-		Physics.Raycast(raycastPoint.position, -raycastPoint.right, out sensors[1], rayDist);
-		Physics.Raycast(raycastPoint.position, raycastPoint.right, out sensors[2], rayDist);
+		Physics.Raycast(raycastPoint.position, raycastPoint.up, out sensors[0], rayDist);
+		Physics.Raycast(raycastPoint.position, raycastPoint.forward, out sensors[1], rayDist);
+		Physics.Raycast(raycastPoint.position, -raycastPoint.up, out sensors[2], rayDist);
 
-		DrawSensorLines();
+        DrawSensorLines();
 
-		float forward, left, right, leftMid, rightMid;
-		forward = left = right = leftMid = rightMid = rayDist;
+		float forward, up, down;
+		forward = down = up = rayDist;
 
-		if (sensors[0].collider != null)
-			forward = sensors[0].distance;
+		if(sensors[0].collider !=cave1.GetComponent<BoxCollider2D>() || sensors[0].collider !=cave2.GetComponent<BoxCollider2D>())
+			up = sensors[0].distance;
 
-		if (sensors[1].collider != null)
-			left = sensors[1].distance;
+		if(sensors[1].collider !=cave1.GetComponent<BoxCollider2D>() || sensors[1].collider !=cave2.GetComponent<BoxCollider2D>())
+			forward = sensors[1].distance;
 
-		if (sensors[2].collider != null)
-			right = sensors[2].distance;
+		if(sensors[2].collider !=cave1.GetComponent<BoxCollider2D>() || sensors[2].collider !=cave2.GetComponent<BoxCollider2D>())
+			down = sensors[2].distance;
 
-		if (sensors[3].collider != null)
-			leftMid = sensors[3].distance;
+        double[] inputs = new double[5];
+		inputs[0] = (2f / rayDist) * forward - 1f;
+		inputs[1] = (2f / rayDist) * left - 1f;
+		inputs[2] = (2f / rayDist) * right - 1f;
+        inputs[3] = (2f / rayDist) * leftMid - 1f;
+        inputs[4] = (2f / rayDist) * rightMid - 1f;
 
-		if (sensors[4].collider != null)
-			rightMid = sensors[4].distance;
+		double[] outputs;
+		outputs = currNN.FeedForward(inputs);
 
-		NeuralNetwork.Matrix inputs = new NeuralNetwork.Matrix(5, 1);
-		inputs.matrix[0,0] = (2f / rayDist) * forward - 1f;
-		inputs.matrix[1,0] = (2f / rayDist) * left - 1f;
-		inputs.matrix[2,0] = (2f / rayDist) * right - 1f;
-		inputs.matrix[3,0] = (2f / rayDist) * leftMid - 1f;
-		inputs.matrix[4,0] = (2f / rayDist) * rightMid - 1f;
-
-		
-		currNN.input = inputs;
-		currNN.FeedForward();
-
-		driveController.SetMaxSpeed(currNN.output.matrix[0,0]);
+		helicontrol.vertical=currNN.output[0,0];
 
 		currCarPos = transform.position;
 		totalDist += Vector3.Distance(currCarPos, lastCarPos);
@@ -116,7 +106,7 @@ public class AI_Trainer : MonoBehaviour
 
 	void OnCollisionEnter()
 	{
-		population.SetFitnessOfCurrIndividual(totalDist);
+		population.SetFitnessOfCurrIndividual(totalDist, timePassed);
 		currNN = population.Next();
 		ResetCarPosition();
 	}
@@ -129,7 +119,7 @@ public class AI_Trainer : MonoBehaviour
 		lastCarPos = startPosition;
 
 		driveController.SetMotorTorque(0f);
-		driveController.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        driveController.GetComponent<Rigidbody>().velocity = Vector3.zero;
 		totalDist = 0f;
 		timePassed = 0f;
 	}
@@ -138,17 +128,17 @@ public class AI_Trainer : MonoBehaviour
 	{
 		Color middleSensorColor, leftSensorColor, rightSensorColor, leftMiddleSensorColor, rightMiddleSensorColor;
 		middleSensorColor = (sensors[0].collider == null) ? Color.green : Color.red;
-		leftSensorColor = (sensors[1].collider == null) ? Color.green : Color.red;
-		rightSensorColor = (sensors[2].collider == null) ? Color.green : Color.red;
-		leftMiddleSensorColor = (sensors[3].collider == null) ? Color.green : Color.red;
-		rightMiddleSensorColor = (sensors[4].collider == null) ? Color.green : Color.red;
+		leftSensorColor   = (sensors[1].collider == null) ? Color.green : Color.red;
+		rightSensorColor  = (sensors[2].collider == null) ? Color.green : Color.red;
+        leftMiddleSensorColor = (sensors[3].collider == null) ? Color.green : Color.red;
+        rightMiddleSensorColor = (sensors[4].collider == null) ? Color.green : Color.red;
 
-		if (lines == null)
+        if (lines == null)
 		{
 			lines = new GameObject[5];
 			DrawLine(
 				raycastPoint.position,
-				(raycastPoint.position + raycastPoint.forward * rayDist),
+				(raycastPoint.position + raycastPoint.forward * rayDist), 
 				middleSensorColor,
 				0
 			);
@@ -167,25 +157,25 @@ public class AI_Trainer : MonoBehaviour
 				2
 			);
 
-			DrawLine(
-				raycastPoint.position,
-				(raycastPoint.position + (-raycastPoint.right) * rayDist),
-				leftMiddleSensorColor,
-				3
-			);
+            DrawLine(
+                raycastPoint.position,
+                (raycastPoint.position + (-raycastPoint.right) * rayDist),
+                leftMiddleSensorColor,
+                3
+            );
 
-			DrawLine(
-				raycastPoint.position,
-				(raycastPoint.position + raycastPoint.right * rayDist),
-				rightMiddleSensorColor,
-				4
-			);
-		}
+            DrawLine(
+                raycastPoint.position,
+                (raycastPoint.position + raycastPoint.right * rayDist),
+                rightMiddleSensorColor,
+                4
+            );
+        }
 		else
 		{
 			UpdateLine(
 				raycastPoint.position,
-				(raycastPoint.position + raycastPoint.forward * rayDist),
+				(raycastPoint.position + raycastPoint.forward * rayDist), 
 				middleSensorColor,
 				0
 			);
@@ -204,23 +194,23 @@ public class AI_Trainer : MonoBehaviour
 				2
 			);
 
-			UpdateLine(
-				raycastPoint.position,
-				(raycastPoint.position + (-raycastPoint.right).normalized * rayDist),
-				leftSensorColor,
-				3
-			);
+            UpdateLine(
+                raycastPoint.position,
+                (raycastPoint.position + (-raycastPoint.right).normalized * rayDist),
+                leftSensorColor,
+                3
+            );
 
-			UpdateLine(
-				raycastPoint.position,
-				(raycastPoint.position + raycastPoint.right.normalized * rayDist),
-				rightSensorColor,
-				4
-			);
-		}
+            UpdateLine(
+                raycastPoint.position,
+                (raycastPoint.position + raycastPoint.right.normalized * rayDist),
+                rightSensorColor,
+                4
+            );
+        }
 
 	}
-
+		
 	void DrawLine(Vector3 start, Vector3 end, Color color, int lineIndex)
 	{
 		GameObject line = new GameObject();
@@ -230,7 +220,7 @@ public class AI_Trainer : MonoBehaviour
 		line.transform.position = start;
 		line.AddComponent<LineRenderer>();
 		LineRenderer lr = line.GetComponent<LineRenderer>();
-		lr.material = lineRendererMaterial; //new Material(Shader.Find("Particles/Priority Alpha Blended"));
+        lr.material = lineRendererMaterial; //new Material(Shader.Find("Particles/Priority Alpha Blended"));
 		lr.startColor = color;
 		lr.endColor = color;
 		lr.startWidth = 0.05f;
