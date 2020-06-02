@@ -272,6 +272,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 954911490, guid: 87a0119eefb786341b02788c893882fb, type: 3}
+      propertyPath: cave1
+      value: 
+      objectReference: {fileID: 1148834821}
+    - target: {fileID: 954911490, guid: 87a0119eefb786341b02788c893882fb, type: 3}
+      propertyPath: cave2
+      value: 
+      objectReference: {fileID: 1631358170}
     - target: {fileID: 8877829132861632201, guid: 87a0119eefb786341b02788c893882fb,
         type: 3}
       propertyPath: m_Name
@@ -2048,7 +2056,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &818997947
 GameObject:
@@ -4112,7 +4120,7 @@ Transform:
   - {fileID: 1986270906}
   - {fileID: 818997948}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1631358174
 Rigidbody2D:
@@ -4992,7 +5000,7 @@ RectTransform:
   - {fileID: 853335942}
   - {fileID: 1658875259}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
