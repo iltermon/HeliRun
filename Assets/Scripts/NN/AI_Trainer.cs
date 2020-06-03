@@ -16,7 +16,7 @@ public class AI_Trainer : MonoBehaviour
 	public GameObject cave2;
 	Vector3 startPosition;
 	Vector3 startPosCave1;
-	Vector3 startPosCave2
+	Vector3 startPosCave2;
 	Vector3 currCarPos;
 	Vector3 lastCarPos;
 	public float totalDist;
@@ -24,6 +24,22 @@ public class AI_Trainer : MonoBehaviour
 	public float timeScale = 1f;
     readonly float rayDist = 8f;
 	int i = 0;
+
+	private static AI_Trainer instance;
+
+	public static AI_Trainer Instance { get { return instance; } }
+
+	private void Awake()
+	{
+		if (instance != null && instance != this)
+		{
+			Destroy(this.gameObject);
+		}
+		else
+		{
+			instance = this;
+		}
+	}
 	// Use this for initialization
 	void Start ()
 	{
@@ -31,7 +47,6 @@ public class AI_Trainer : MonoBehaviour
 		population = new Population(10, new int[]{4, 200, 1}, 1f);
 		raycastPoint = transform.Find("RaycastPoint");	
 		startPosition = transform.position;
-		startRotation = transform.rotation;
 		currCarPos = lastCarPos = startPosition;
 		currNN = population.Next();
 	}
@@ -91,7 +106,7 @@ public class AI_Trainer : MonoBehaviour
 		currNN.FeedForward();
 
 
-		heliControl.vertical = currNN.output.matrix[0, 0];
+		heliControl.Instance.vertical = currNN.output.matrix[0, 0];
 
 		currCarPos = transform.position;
 		totalDist += Vector3.Distance(currCarPos, lastCarPos);
@@ -106,7 +121,7 @@ public class AI_Trainer : MonoBehaviour
 		if (!collision.CompareTag("point"))
 		{
 			Debug.Log(i);	
-			population.SetFitnessOfCurrIndividual(GameControl.score);
+			population.SetFitnessOfCurrIndividual(GameControl.Instance.score);
 			currNN = population.Next();
 			i++;
 			ResetCarPosition(); 
@@ -119,7 +134,7 @@ public class AI_Trainer : MonoBehaviour
 		currCarPos = startPosition;
 		lastCarPos = startPosition;
 		GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-		GameControl.score = 0;
+		GameControl.Instance.score = 0;
 	}
 
 	//void DrawSensorLines()

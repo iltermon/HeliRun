@@ -10,47 +10,47 @@ public class ButtonControl : MonoBehaviour
 
     public void GetVertical()
     {
-        heliControl.vertical = 1;
+        heliControl.Instance.vertical = 1;
 
     }
     public void ReleaseVertical()
     {
-        heliControl.vertical = 0;
+        heliControl.Instance.vertical = 0;
     }
     public void PauseGame()
     {
-        if (GameControl.paused)
+        if (GameControl.Instance.paused)
         {
             Time.timeScale = 1;
-            GameControl.paused = false;
+            GameControl.Instance.paused = false;
             resumeButton.gameObject.SetActive(false);
-            heliControl.sounds[0].Play();
+            heliControl.Instance.sounds[0].Play();
 
         }
         else
         {
             Time.timeScale = 0;
-            GameControl.paused = true;
+            GameControl.Instance.paused = true;
             resumeButton.gameObject.SetActive(true);
-            heliControl.sounds[0].Pause();
+            heliControl.Instance.sounds[0].Pause();
         }
     }
     public void MuteGame()
     {
-        if (GameControl.muted)
+        if (GameControl.Instance.muted)
         {
-            GameControl.muted = false;
-            for (int i = 0; i < heliControl.sounds.Length; i++)
+            GameControl.Instance.muted = false;
+            for (int i = 0; i < heliControl.Instance.sounds.Length; i++)
             {
-                heliControl.sounds[i].mute = true;
+                heliControl.Instance.sounds[i].mute = true;
             }
         }
-        else if (!GameControl.muted)
+        else if (!GameControl.Instance.muted)
         { 
-            GameControl.muted = true;
-            for (int i = 0; i < heliControl.sounds.Length; i++)
+            GameControl.Instance.muted = true;
+            for (int i = 0; i < heliControl.Instance.sounds.Length; i++)
             {
-                heliControl.sounds[i].mute = false;
+                heliControl.Instance.sounds[i].mute = false;
             }
         }
 

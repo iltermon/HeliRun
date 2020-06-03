@@ -14,12 +14,28 @@ public class heliControl : MonoBehaviour
     SpriteRenderer spriteRenderer;
     float _time = 0;
     float timeLimit = 0.1F;
-    public static float vertical = 0f;
+    public float vertical = 0f;
     public int speed = 10;
     public Text point_text;
     public GameControl gameControl;
-    public static AudioSource []sounds;
-    public static bool newHighScore=false;
+    public AudioSource []sounds;
+    public bool newHighScore=false;
+
+    private static heliControl instance;
+
+    public static heliControl Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -31,7 +47,7 @@ public class heliControl : MonoBehaviour
 
     void Update()
     {
-        if (GameControl.gameOver==false && GameControl.gameStarted==true)
+        if (gameControl.gameOver==false && gameControl.gameStarted==true)
         {
             Animation();
         }
@@ -65,7 +81,7 @@ public class heliControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!GameControl.gameOver) 
+        if (!gameControl.gameOver) 
         { 
         Vector2 vec = new Vector2(0, vertical);
         helicopterRigid.AddForce(vec * speed);
@@ -76,16 +92,17 @@ public class heliControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("point"))
         {
-            GameControl.score++;
-            point_text.text = GameControl.score.ToString();
+            gameControl.score++;
+            point_text.text = gameControl.score.ToString();
             sounds[2].Play();
-            GameControl.bgrigid1.velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
-            GameControl.bgrigid2.velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
-            GameControl.blocks[0].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
-            GameControl.blocks[1].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
-            GameControl.blocks[2].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
-            GameControl.blocks[3].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
-            GameControl.blocks[4].GetComponent<Rigidbody2D>().velocity = new Vector2(-(GameControl.backgroundSpeed + (GameControl.score / 10)), 0);
+            //TODO:[1] bunu gamecontrole taşı metod olarak buradan çağır.
+            gameControl.bgrigid1.velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
+            gameControl.bgrigid2.velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
+            gameControl.blocks[0].GetComponent<Rigidbody2D>().velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
+            gameControl.blocks[1].GetComponent<Rigidbody2D>().velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
+            gameControl.blocks[2].GetComponent<Rigidbody2D>().velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
+            gameControl.blocks[3].GetComponent<Rigidbody2D>().velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
+            gameControl.blocks[4].GetComponent<Rigidbody2D>().velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
         }
         if ((collision.gameObject.CompareTag("block") || collision.gameObject.CompareTag("top") || collision.gameObject.CompareTag("ground")) && SceneManager.GetActiveScene().name == "game_scene")
         {
@@ -94,17 +111,17 @@ public class heliControl : MonoBehaviour
                 helicopterRigid.velocity = Vector2.zero;
                 helicopterRigid.gravityScale = 0;
             }
-            if (!GameControl.gameOver)
+            if (!gameControl.gameOver)
             {
                 sounds[0].Pause();
                 sounds[1].Play();
             }
-            GameControl.gameOver = true;
-            if (GameControl.score > GameControl.highscore)
+            gameControl.gameOver = true;
+            if (gameControl.score > gameControl.highscore)
             {
                 newHighScore=true;
-                GameControl.highscore = GameControl.score;
-                PlayerPrefs.SetInt("highScore", GameControl.highscore);
+                gameControl.highscore = gameControl.score;
+                PlayerPrefs.SetInt("highScore", gameControl.highscore);
             }
             gameControl.GameOver();
         }
