@@ -96,13 +96,7 @@ public class heliControl : MonoBehaviour
             point_text.text = gameControl.score.ToString();
             sounds[2].Play();
             //TODO:[1] bunu gamecontrole taşı metod olarak buradan çağır.
-            gameControl.bgrigid1.velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
-            gameControl.bgrigid2.velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
-            gameControl.blocks[0].GetComponent<Rigidbody2D>().velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
-            gameControl.blocks[1].GetComponent<Rigidbody2D>().velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
-            gameControl.blocks[2].GetComponent<Rigidbody2D>().velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
-            gameControl.blocks[3].GetComponent<Rigidbody2D>().velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
-            gameControl.blocks[4].GetComponent<Rigidbody2D>().velocity = new Vector2(-(gameControl.backgroundSpeed + (gameControl.score / 10)), 0);
+            GameControl.Instance.IncreaseVelocity();
         }
         if ((collision.gameObject.CompareTag("block") || collision.gameObject.CompareTag("top") || collision.gameObject.CompareTag("ground")) && SceneManager.GetActiveScene().name == "game_scene")
         {

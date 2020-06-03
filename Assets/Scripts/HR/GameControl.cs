@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
-    public int score = 0;
+    public int score;
     public int highscore;
     public bool gameStarted = false;
     public bool paused = false;
@@ -179,6 +179,17 @@ public class GameControl : MonoBehaviour
                 yourScore.gameObject.SetActive(true);
             }
         }
+    }
+
+    public void IncreaseVelocity()
+    {
+        bgrigid1.velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
+        bgrigid2.velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
+        blocks[0].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
+        blocks[1].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
+        blocks[2].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
+        blocks[3].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
+        blocks[4].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
     }
     
 
