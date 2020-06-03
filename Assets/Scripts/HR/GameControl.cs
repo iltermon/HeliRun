@@ -33,7 +33,6 @@ public class GameControl : MonoBehaviour
     private int counter = 0;
     private float size = 0;
     float _time = 0;
-    public heliControl hcontrol;
 
     
     private static GameControl instance;
@@ -54,9 +53,8 @@ public class GameControl : MonoBehaviour
     }
     void Start()
     {
-        hcontrol = GameObject.FindGameObjectWithTag("heliControlScript").GetComponent<heliControl>();
         score = 0; 
-        hcontrol.newHighScore = false;
+        heliControl.Instance.newHighScore = false;
         gameOver = false;
         gameStarted = false;
         bgrigid1 = background1.GetComponent<Rigidbody2D>();
@@ -73,7 +71,7 @@ public class GameControl : MonoBehaviour
     void WaitforInput()
     {
 
-        if(gameStarted==false && hcontrol.vertical > 0)
+        if(gameStarted==false && heliControl.Instance.vertical > 0)
         {
             gameOver = false;
             gameStarted = true;
@@ -82,7 +80,7 @@ public class GameControl : MonoBehaviour
             highscoreText.gameObject.SetActive(false);
             clickToStart.gameObject.SetActive(false);
         }
-        else if(gameStarted==true && hcontrol.vertical>0 && gameOver == true && SceneManager.GetActiveScene().name == "game_scene")
+        else if(gameStarted==true && heliControl.Instance.vertical>0 && gameOver == true && SceneManager.GetActiveScene().name == "game_scene")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Start();
@@ -96,7 +94,7 @@ public class GameControl : MonoBehaviour
         bgrigid2.velocity = new Vector2(-backgroundSpeed, 0);
         helicopter.GetComponent<Rigidbody2D>().simulated = true;
         size = background1.GetComponent<BoxCollider2D>().size.x;
-        hcontrol.sounds[0].Play();
+        heliControl.Instance.sounds[0].Play();
         CreateBlocks();
         
     }
@@ -165,8 +163,8 @@ public class GameControl : MonoBehaviour
             gameOverImage.gameObject.SetActive(true);
             clickToStart.gameObject.SetActive(true);
             pauseButton.gameObject.SetActive(false);
-            hcontrol.vertical = 0;
-            if (hcontrol.newHighScore)
+            heliControl.Instance.vertical = 0;
+            if (heliControl.Instance.newHighScore)
             {
                 highscoreText.text = "New High Score";
                 yourScore.text = "Your Score: " + score.ToString();

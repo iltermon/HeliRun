@@ -101,7 +101,6 @@ public class AI_Trainer : MonoBehaviour
 		currNN.input.matrix[0, 0] = (2f / rayDist) * up - 1f;
 		currNN.input.matrix[1, 0] = (2f / rayDist) * forward - 1f;
 		currNN.input.matrix[2, 0] = (2f / rayDist) * down - 1f;
-
 		currNN.input.matrix[3, 0] = (2f/rayDist) * vel - 1f ;
 		currNN.FeedForward();
 
