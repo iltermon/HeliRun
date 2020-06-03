@@ -638,6 +638,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resumeButton: {fileID: 0}
+--- !u!1 &280448429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 280448430}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &280448430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280448429}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.238, y: 0.19, z: -4.984375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &359524046
 GameObject:
   m_ObjectHideFlags: 0
@@ -2000,7 +2030,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db18b5ea2ef862f488df683d857066e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
+  highscore: 0
+  gameStarted: 0
+  paused: 0
   yourScore: {fileID: 853335943}
+  muted: 0
   newRecord: {fileID: 1005444420}
   pauseButton: {fileID: 5324930}
   gameOverImage: {fileID: 741541044}
@@ -2009,9 +2044,15 @@ MonoBehaviour:
   background2: {fileID: 2077691198}
   block: {fileID: 5319143688378928028, guid: ae24ac2a6f840424c896d9a98b3d8139, type: 3}
   blockNumber: 5
+  backgroundSpeed: 5
   title: {fileID: 1560211047}
-  helicopter: {fileID: 0}
+  helicopter: {fileID: 901150294}
   highscoreText: {fileID: 645374019}
+  gameOver: 0
+  blocks: []
+  bgrigid1: {fileID: 0}
+  bgrigid2: {fileID: 0}
+  blockRigid: {fileID: 0}
 --- !u!4 &828801086
 Transform:
   m_ObjectHideFlags: 0
@@ -2595,6 +2636,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.24400002
       objectReference: {fileID: 0}
+    - target: {fileID: 8877829132861632206, guid: bb498b279acde2640a6e6294e669fc1b,
+        type: 3}
+      propertyPath: gameControl
+      value: 
+      objectReference: {fileID: 828801085}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb498b279acde2640a6e6294e669fc1b, type: 3}
 --- !u!1 &899865443
@@ -2800,6 +2846,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &901150294 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8877829132861632201, guid: bb498b279acde2640a6e6294e669fc1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 870414034}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &995934604
 GameObject:
   m_ObjectHideFlags: 0

@@ -272,24 +272,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 954911490, guid: 87a0119eefb786341b02788c893882fb, type: 3}
-      propertyPath: cave1
-      value: 
-      objectReference: {fileID: 1148834821}
-    - target: {fileID: 954911490, guid: 87a0119eefb786341b02788c893882fb, type: 3}
-      propertyPath: cave2
-      value: 
-      objectReference: {fileID: 1631358170}
-    - target: {fileID: 82676942645884705, guid: 87a0119eefb786341b02788c893882fb,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.519
-      objectReference: {fileID: 0}
-    - target: {fileID: 82676942645884705, guid: 87a0119eefb786341b02788c893882fb,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8877829132861632201, guid: 87a0119eefb786341b02788c893882fb,
         type: 3}
       propertyPath: m_Name
@@ -2302,7 +2284,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db18b5ea2ef862f488df683d857066e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
+  highscore: 0
+  gameStarted: 0
+  paused: 0
   yourScore: {fileID: 853335943}
+  muted: 0
   newRecord: {fileID: 1005444420}
   pauseButton: {fileID: 5324930}
   gameOverImage: {fileID: 741541044}
@@ -2311,9 +2298,15 @@ MonoBehaviour:
   background2: {fileID: 1631358170}
   block: {fileID: 5319143688378928028, guid: ae24ac2a6f840424c896d9a98b3d8139, type: 3}
   blockNumber: 5
+  backgroundSpeed: 5
   title: {fileID: 1560211047}
   helicopter: {fileID: 954911481}
   highscoreText: {fileID: 645374019}
+  gameOver: 0
+  blocks: []
+  bgrigid1: {fileID: 0}
+  bgrigid2: {fileID: 0}
+  blockRigid: {fileID: 0}
 --- !u!4 &828801086
 Transform:
   m_ObjectHideFlags: 0
