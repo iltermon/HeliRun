@@ -15,13 +15,14 @@ public class AI_Trainer : MonoBehaviour
 	public GameObject cave1;
 	public GameObject cave2;
 	Vector3 startPosition;
-	Quaternion startRotation;
+	Vector3 startPosCave1;
+	Vector3 startPosCave2
 	Vector3 currCarPos;
 	Vector3 lastCarPos;
 	public float totalDist;
 	public float timePassed;
 	public float timeScale = 1f;
-    readonly float rayDist = 10f;
+    readonly float rayDist = 8f;
 	int i = 0;
 	// Use this for initialization
 	void Start ()
