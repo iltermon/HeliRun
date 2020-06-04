@@ -93,7 +93,7 @@ public class GameControl : MonoBehaviour
         bgrigid1.velocity = new Vector2(-backgroundSpeed, 0);
         bgrigid2.velocity = new Vector2(-backgroundSpeed, 0);
         helicopter.GetComponent<Rigidbody2D>().simulated = true;
-        size = background1.GetComponent<BoxCollider2D>().size.x;
+        size = 40;
         heliControl.Instance.sounds[0].Play();
         CreateBlocks();
         

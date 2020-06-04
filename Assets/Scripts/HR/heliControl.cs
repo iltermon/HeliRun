@@ -93,9 +93,8 @@ public class heliControl : MonoBehaviour
         if (collision.gameObject.CompareTag("point"))
         {
             gameControl.score++;
-            point_text.text = gameControl.score.ToString();
+            point_text.text = GameControl.Instance.score.ToString();
             sounds[2].Play();
-            //TODO:[1] bunu gamecontrole taşı metod olarak buradan çağır.
             GameControl.Instance.IncreaseVelocity();
         }
         if ((collision.gameObject.CompareTag("block") || collision.gameObject.CompareTag("top") || collision.gameObject.CompareTag("ground")) && SceneManager.GetActiveScene().name == "game_scene")

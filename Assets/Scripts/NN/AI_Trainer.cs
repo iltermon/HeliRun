@@ -12,8 +12,6 @@ public class AI_Trainer : MonoBehaviour
 	Transform raycastPoint;
 	RaycastHit2D[] sensors;
     public Material lineRendererMaterial;
-	public GameObject cave1;
-	public GameObject cave2;
 	Vector3 startPosition;
 	Vector3 startPosCave1;
 	Vector3 startPosCave2;
@@ -22,7 +20,7 @@ public class AI_Trainer : MonoBehaviour
 	public float totalDist;
 	public float timePassed;
 	public float timeScale = 1f;
-    readonly float rayDist = 8f;
+    readonly float rayDist = 8;
 	int i = 0;
 
 	private static AI_Trainer instance;
@@ -68,35 +66,34 @@ public class AI_Trainer : MonoBehaviour
             timeScale = 1f;
     }
 	// Update is called once per frame
-	void Update ()
+	void Update()
 	{
 		float forward, up, down, vel;
 		Time.timeScale = timeScale;
 		sensors = new RaycastHit2D[3];
-		sensors[0] = Physics2D.Raycast(raycastPoint.position, raycastPoint.up,rayDist);
+		sensors[0] = Physics2D.Raycast(raycastPoint.position, raycastPoint.up, rayDist);
 		sensors[1] = Physics2D.Raycast(raycastPoint.position, raycastPoint.forward, rayDist);
 		sensors[2] = Physics2D.Raycast(raycastPoint.position, -raycastPoint.up, rayDist);
-		Debug.DrawLine(raycastPoint.position, sensors[2].point);
-		Debug.DrawLine(raycastPoint.position, sensors[0].point);
-		Debug.DrawLine(raycastPoint.position, sensors[1].point);
 		forward = down = up = rayDist;
-		if (sensors[0].collider != cave1.GetComponent<BoxCollider2D>() || sensors[0].collider != cave2.GetComponent<BoxCollider2D>() || !sensors[1].collider.CompareTag("point")) 
-		{ 
-			up = sensors[0].distance;
-
-		}
-
-		if (sensors[1].collider != cave1.GetComponent<BoxCollider2D>() || sensors[1].collider != cave2.GetComponent<BoxCollider2D>() || !sensors[1].collider.CompareTag("point"))
-		{ 
-			forward = sensors[1].distance;
-			
-		}
-
-		if (sensors[2].collider != cave1.GetComponent<BoxCollider2D>() || sensors[2].collider != cave2.GetComponent<BoxCollider2D>() || !sensors[1].collider.CompareTag("point"))
-		{ 
-			down = sensors[2].distance;
-
-		}
+			if (sensors[0].collider != null )
+			{
+				if(!sensors[0].collider.CompareTag("point"))
+				{
+					up = sensors[0].distance;
+				}
+			}
+			if (sensors[1].collider!=null)
+			{
+				if(!sensors[1].collider.CompareTag("point"))
+				{
+				forward = sensors[1].distance;
+				}
+				
+			}
+			if (sensors[2].collider !=null)
+			{
+				down = sensors[2].distance;
+			} 
 		vel = GetComponent<Rigidbody2D>().velocity[1];
 		currNN.input.matrix[0, 0] = (2f / rayDist) * up - 1f;
 		currNN.input.matrix[1, 0] = (2f / rayDist) * forward - 1f;
@@ -105,7 +102,7 @@ public class AI_Trainer : MonoBehaviour
 		currNN.FeedForward();
 
 
-		heliControl.Instance.vertical = currNN.output.matrix[0, 0];
+		//heliControl.Instance.vertical = currNN.output.matrix[0, 0];
 
 		currCarPos = transform.position;
 		totalDist += Vector3.Distance(currCarPos, lastCarPos);
@@ -119,7 +116,7 @@ public class AI_Trainer : MonoBehaviour
 	{
 		if (!collision.CompareTag("point"))
 		{
-			Debug.Log(i);	
+
 			population.SetFitnessOfCurrIndividual(GameControl.Instance.score);
 			currNN = population.Next();
 			i++;
@@ -136,118 +133,118 @@ public class AI_Trainer : MonoBehaviour
 		GameControl.Instance.score = 0;
 	}
 
-	//void DrawSensorLines()
-	//{
-	//	Color middleSensorColor, leftSensorColor, rightSensorColor, leftMiddleSensorColor, rightMiddleSensorColor;
-	//	middleSensorColor = (sensors[0].collider == null) ? Color.green : Color.red;
-	//	leftSensorColor   = (sensors[1].collider == null) ? Color.green : Color.red;
-	//	rightSensorColor  = (sensors[2].collider == null) ? Color.green : Color.red;
+	void DrawSensorLines()
+	{
+		Color middleSensorColor, leftSensorColor, rightSensorColor, leftMiddleSensorColor, rightMiddleSensorColor;
+		middleSensorColor = (sensors[0].collider == null) ? Color.green : Color.red;
+		leftSensorColor   = (sensors[1].collider == null) ? Color.green : Color.red;
+		rightSensorColor  = (sensors[2].collider == null) ? Color.green : Color.red;
 
 
-  //      if (lines == null)
-		//{
-		//	lines = new GameObject[5];
-		//	DrawLine(
-		//		raycastPoint.position,
-		//		(raycastPoint.position + raycastPoint.forward * rayDist), 
-		//		middleSensorColor,
-		//		0
-		//	);
+       if (lines == null)
+		{
+			lines = new GameObject[5];
+			DrawLine(
+				raycastPoint.position,
+				(raycastPoint.position + raycastPoint.forward * rayDist), 
+				middleSensorColor,
+				0
+			);
 
-		//	DrawLine(
-		//		raycastPoint.position,
-		//		(raycastPoint.position + (raycastPoint.forward - raycastPoint.right) * rayDist),
-		//		leftMiddleSensorColor,
-		//		1
-		//	);
+			DrawLine(
+				raycastPoint.position,
+				(raycastPoint.position + (raycastPoint.forward - raycastPoint.right) * rayDist),
+				leftMiddleSensorColor,
+				1
+			);
 
-		//	DrawLine(
-		//		raycastPoint.position,
-		//		(raycastPoint.position + (raycastPoint.forward + raycastPoint.right) * rayDist),
-		//		rightMiddleSensorColor,
-		//		2
-		//	);
+			DrawLine(
+				raycastPoint.position,
+				(raycastPoint.position + (raycastPoint.forward + raycastPoint.right) * rayDist),
+				rightMiddleSensorColor,
+				2
+			);
 
-  //          DrawLine(
-  //              raycastPoint.position,
-  //              (raycastPoint.position + (-raycastPoint.right) * rayDist),
-  //              leftMiddleSensorColor,
-  //              3
-  //          );
+           DrawLine(
+               raycastPoint.position,
+               (raycastPoint.position + (-raycastPoint.right) * rayDist),
+               leftMiddleSensorColor,
+               3
+           );
 
-  //          DrawLine(
-  //              raycastPoint.position,
-  //              (raycastPoint.position + raycastPoint.right * rayDist),
-  //              rightMiddleSensorColor,
-  //              4
-  //          );
-  //      }
-		//else
-		//{
-		//	UpdateLine(
-		//		raycastPoint.position,
-		//		(raycastPoint.position + raycastPoint.forward * rayDist), 
-		//		middleSensorColor,
-		//		0
-		//	);
+           DrawLine(
+               raycastPoint.position,
+               (raycastPoint.position + raycastPoint.right * rayDist),
+               rightMiddleSensorColor,
+               4
+           );
+       }
+		else
+		{
+			UpdateLine(
+				raycastPoint.position,
+				(raycastPoint.position + raycastPoint.forward * rayDist), 
+				middleSensorColor,
+				0
+			);
 
-		//	UpdateLine(
-		//		raycastPoint.position,
-		//		(raycastPoint.position + (raycastPoint.forward - raycastPoint.right).normalized * rayDist),
-		//		leftMiddleSensorColor,
-		//		1
-		//	);
+			UpdateLine(
+				raycastPoint.position,
+				(raycastPoint.position + (raycastPoint.forward - raycastPoint.right).normalized * rayDist),
+				leftMiddleSensorColor,
+				1
+			);
 
-		//	UpdateLine(
-		//		raycastPoint.position,
-		//		(raycastPoint.position + (raycastPoint.forward + raycastPoint.right).normalized * rayDist),
-		//		rightMiddleSensorColor,
-		//		2
-		//	);
+			UpdateLine(
+				raycastPoint.position,
+				(raycastPoint.position + (raycastPoint.forward + raycastPoint.right).normalized * rayDist),
+				rightMiddleSensorColor,
+				2
+			);
 
-  //          UpdateLine(
-  //              raycastPoint.position,
-  //              (raycastPoint.position + (-raycastPoint.right).normalized * rayDist),
-  //              leftSensorColor,
-  //              3
-  //          );
+           UpdateLine(
+               raycastPoint.position,
+               (raycastPoint.position + (-raycastPoint.right).normalized * rayDist),
+               leftSensorColor,
+               3
+           );
 
-  //          UpdateLine(
-  //              raycastPoint.position,
-  //              (raycastPoint.position + raycastPoint.right.normalized * rayDist),
-  //              rightSensorColor,
-  //              4
-  //          );
-        //}
+           UpdateLine(
+               raycastPoint.position,
+               (raycastPoint.position + raycastPoint.right.normalized * rayDist),
+               rightSensorColor,
+               4
+           );
+        }
 
-	//}
+	}
 		
-	//void DrawLine(Vector3 start, Vector3 end, Color color, int lineIndex)
-	//{
-	//	GameObject line = new GameObject();
-	//	line.name = "Line " + lineIndex;
-	//	line.transform.SetParent(environments.transform);
+	void DrawLine(Vector3 start, Vector3 end, Color color, int lineIndex)
+	{
+		GameObject line = new GameObject();
+		line.name = "Line " + lineIndex;
+		line.transform.SetParent(environments.transform);
 
-	//	line.transform.position = start;
-	//	line.AddComponent<LineRenderer>();
-	//	LineRenderer lr = line.GetComponent<LineRenderer>();
- //       lr.material = lineRendererMaterial; //new Material(Shader.Find("Particles/Priority Alpha Blended"));
-	//	lr.startColor = color;
-	//	lr.endColor = color;
-	//	lr.startWidth = 0.05f;
-	//	lr.endWidth = 0.05f;
-	//	lr.SetPosition(0, start);
-	//	lr.SetPosition(1, end);
+		line.transform.position = start;
+		line.AddComponent<LineRenderer>();
+		LineRenderer lr = line.GetComponent<LineRenderer>();
+       lr.material = lineRendererMaterial; //new Material(Shader.Find("Particles/Priority Alpha Blended"));
+		lr.startColor = color;
+		lr.endColor = color;
+		lr.startWidth = 0.05f;
+		lr.endWidth = 0.05f;
+		lr.SetPosition(0, start);
+		lr.SetPosition(1, end);
 
-	//	lines[lineIndex] = line;
-	//}
+		lines[lineIndex] = line;
+	}
 
-	//void UpdateLine(Vector3 start, Vector3 end, Color color, int lineIndex)
-	//{
-	//	LineRenderer lr = lines[lineIndex].GetComponent<LineRenderer>();
-	//	lr.startColor = color;
-	//	lr.endColor = color;
-	//	lr.SetPosition(0, start);
-	//	lr.SetPosition(1, end);
-	//}
+	void UpdateLine(Vector3 start, Vector3 end, Color color, int lineIndex)
+	{
+		LineRenderer lr = lines[lineIndex].GetComponent<LineRenderer>();
+		lr.startColor = color;
+		lr.endColor = color;
+		lr.SetPosition(0, start);
+		lr.SetPosition(1, end);
+	}
 }

@@ -2234,6 +2234,7 @@ GameObject:
   - component: {fileID: 861035059}
   - component: {fileID: 861035061}
   - component: {fileID: 861035060}
+  - component: {fileID: 861035062}
   m_Layer: 0
   m_Name: top
   m_TagString: top
@@ -2428,6 +2429,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &861035062
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861035058}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &862936896
 GameObject:
   m_ObjectHideFlags: 0
@@ -2438,7 +2460,6 @@ GameObject:
   m_Component:
   - component: {fileID: 862936900}
   - component: {fileID: 862936899}
-  - component: {fileID: 862936898}
   - component: {fileID: 862936897}
   m_Layer: 0
   m_Name: cave_1 (1)
@@ -2468,32 +2489,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &862936898
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 862936896}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 10, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 20, y: 20}
-    newSize: {x: 20, y: 20}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 40, y: 20}
-  m_EdgeRadius: 0
 --- !u!212 &862936899
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2576,6 +2571,16 @@ PrefabInstance:
       propertyPath: cave2
       value: 
       objectReference: {fileID: 2077691198}
+    - target: {fileID: 82676942645884705, guid: bb498b279acde2640a6e6294e669fc1b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.645
+      objectReference: {fileID: 0}
+    - target: {fileID: 82676942645884705, guid: bb498b279acde2640a6e6294e669fc1b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8877829132861632201, guid: bb498b279acde2640a6e6294e669fc1b,
         type: 3}
       propertyPath: m_Name
@@ -2609,12 +2614,12 @@ PrefabInstance:
     - target: {fileID: 8877829132861632204, guid: bb498b279acde2640a6e6294e669fc1b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0021292581
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8877829132861632204, guid: bb498b279acde2640a6e6294e669fc1b,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99999774
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8877829132861632204, guid: bb498b279acde2640a6e6294e669fc1b,
         type: 3}
@@ -2634,7 +2639,12 @@ PrefabInstance:
     - target: {fileID: 8877829132861632204, guid: bb498b279acde2640a6e6294e669fc1b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0.24400002
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8877829132861632205, guid: bb498b279acde2640a6e6294e669fc1b,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8877829132861632206, guid: bb498b279acde2640a6e6294e669fc1b,
         type: 3}
@@ -4920,7 +4930,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2077691202}
   - component: {fileID: 2077691201}
-  - component: {fileID: 2077691200}
   - component: {fileID: 2077691199}
   m_Layer: 0
   m_Name: cave_2 (1)
@@ -4950,32 +4959,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &2077691200
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2077691198}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 10, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 20, y: 20}
-    newSize: {x: 20, y: 20}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 40, y: 20}
-  m_EdgeRadius: 0
 --- !u!212 &2077691201
 SpriteRenderer:
   m_ObjectHideFlags: 0
