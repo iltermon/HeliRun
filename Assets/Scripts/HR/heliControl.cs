@@ -16,7 +16,8 @@ public class heliControl : MonoBehaviour
     float timeLimit = 0.1F;
     public float vertical = 0f;
     public int speed = 10;
-    public Text point_text;
+    
+   
     public GameControl gameControl;
     public AudioSource []sounds;
     public bool newHighScore=false;
@@ -92,10 +93,7 @@ public class heliControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("point"))
         {
-            gameControl.score++;
-            point_text.text = GameControl.Instance.score.ToString();
-            sounds[2].Play();
-            GameControl.Instance.IncreaseVelocity();
+            GameControl.Instance.AddScore();
         }
         if ((collision.gameObject.CompareTag("block") || collision.gameObject.CompareTag("top") || collision.gameObject.CompareTag("ground")) && SceneManager.GetActiveScene().name == "game_scene")
         {

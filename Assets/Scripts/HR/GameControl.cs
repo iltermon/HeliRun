@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
+    public Text scoreText;
     public int score;
     public int highscore;
     public bool gameStarted = false;
@@ -191,6 +192,14 @@ public class GameControl : MonoBehaviour
         blocks[3].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
         blocks[4].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
     }
-    
+    public void AddScore()
+    {
+            score++;
+            scoreText.text = GameControl.Instance.score.ToString();
+            //TODO: sesi gamecontrolün içine al tamamen.
+            heliControl.Instance.sounds[2].Play();
+            IncreaseVelocity();
+    }
+
 
 }
