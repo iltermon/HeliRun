@@ -22,19 +22,19 @@ namespace NeuralNetwork
                 this.outputN = outputN;
                 this.learningRate = learningRate;
 
-                input = new Matrix(inputN, 1);
-                hidden = new Matrix(hiddenN, 1);
-                output = new Matrix(outputN, 1);
+                this.input = new Matrix(inputN, 1);
+                this.hidden = new Matrix(hiddenN, 1);
+                this.output = new Matrix(outputN, 1);
 
-                weights[0] = new Matrix(hiddenN, inputN); 
-                weights[1] = new Matrix(outputN, hiddenN); 
-                biases[0] = new Matrix(hiddenN, 1);
-                biases[1] = new Matrix(outputN, 1);
+                this.weights[0] = new Matrix(hiddenN, inputN); 
+                this.weights[1] = new Matrix(outputN, hiddenN); 
+                this.biases[0] = new Matrix(hiddenN, 1);
+                this.biases[1] = new Matrix(outputN, 1);
 
-                weights[0].Randomize();
-                weights[1].Randomize();
-                biases[0].Randomize();
-                biases[1].Randomize();
+                this.weights[0].Randomize();
+                this.weights[1].Randomize();
+                this.biases[0].Randomize();
+                this.biases[1].Randomize();
 
             }
             public NeuralNetwork(NeuralNetwork nn)
@@ -42,9 +42,11 @@ namespace NeuralNetwork
                 this.inputN = nn.inputN;
                 this.hiddenN = nn.hiddenN;
                 this.outputN = nn.outputN;
-
                 this.learningRate = nn.learningRate;
 
+                this.input  = nn.input; 
+                this.hidden = nn.hidden;
+                this.output = nn.output;
                 this.weights[0] = new Matrix(nn.weights[0]);
                 this.weights[1] = new Matrix(nn.weights[1]);
                 this.biases[0] = new Matrix(nn.biases[0]);
