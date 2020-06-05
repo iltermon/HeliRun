@@ -2030,6 +2030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db18b5ea2ef862f488df683d857066e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 709739067}
   score: 0
   highscore: 0
   gameStarted: 0
@@ -2563,24 +2564,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 954911490, guid: bb498b279acde2640a6e6294e669fc1b, type: 3}
-      propertyPath: cave1
-      value: 
-      objectReference: {fileID: 862936896}
-    - target: {fileID: 954911490, guid: bb498b279acde2640a6e6294e669fc1b, type: 3}
-      propertyPath: cave2
-      value: 
-      objectReference: {fileID: 2077691198}
-    - target: {fileID: 82676942645884705, guid: bb498b279acde2640a6e6294e669fc1b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.645
-      objectReference: {fileID: 0}
-    - target: {fileID: 82676942645884705, guid: bb498b279acde2640a6e6294e669fc1b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8877829132861632201, guid: bb498b279acde2640a6e6294e669fc1b,
         type: 3}
       propertyPath: m_Name
@@ -2641,16 +2624,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8877829132861632205, guid: bb498b279acde2640a6e6294e669fc1b,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8877829132861632206, guid: bb498b279acde2640a6e6294e669fc1b,
         type: 3}
       propertyPath: gameControl
       value: 
       objectReference: {fileID: 828801085}
+    - target: {fileID: 8877829132861632206, guid: bb498b279acde2640a6e6294e669fc1b,
+        type: 3}
+      propertyPath: point_text
+      value: 
+      objectReference: {fileID: 709739067}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb498b279acde2640a6e6294e669fc1b, type: 3}
 --- !u!1 &899865443
