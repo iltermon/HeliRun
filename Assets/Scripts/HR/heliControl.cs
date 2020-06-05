@@ -16,9 +16,6 @@ public class heliControl : MonoBehaviour
     float timeLimit = 0.1F;
     public float vertical = 0f;
     public int speed = 10;
-    
-   
-    public GameControl gameControl;
     public AudioSource []sounds;
     public bool newHighScore=false;
 
@@ -41,14 +38,13 @@ public class heliControl : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         helicopterRigid = GetComponent<Rigidbody2D>();
-        gameControl = GameObject.FindGameObjectWithTag("gameControlScript").GetComponent<GameControl>();
         sounds = GetComponents<AudioSource>();
         vertical = 0;
     }
 
     void Update()
     {
-        if (gameControl.gameOver==false && gameControl.gameStarted==true)
+        if (GameControl.Instance.gameOver==false && GameControl.Instance.gameStarted==true)
         {
             Animation();
         }
@@ -82,7 +78,7 @@ public class heliControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!gameControl.gameOver) 
+        if (!GameControl.Instance.gameOver) 
         { 
         Vector2 vec = new Vector2(0, vertical);
         helicopterRigid.AddForce(vec * speed);
@@ -91,9 +87,9 @@ public class heliControl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("point"))
+        if (collision.gameObject.CompareTag("point") && GameControl.Instance.scene=="game_scene")
         {
-            GameControl.Instance.AddScore();
+            GameControl.Instance.Score();
         }
         if ((collision.gameObject.CompareTag("block") || collision.gameObject.CompareTag("top") || collision.gameObject.CompareTag("ground")) && SceneManager.GetActiveScene().name == "game_scene")
         {
@@ -102,19 +98,19 @@ public class heliControl : MonoBehaviour
                 helicopterRigid.velocity = Vector2.zero;
                 helicopterRigid.gravityScale = 0;
             }
-            if (!gameControl.gameOver)
+            if (!GameControl.Instance.gameOver)
             {
                 sounds[0].Pause();
                 sounds[1].Play();
             }
-            gameControl.gameOver = true;
-            if (gameControl.score > gameControl.highscore)
+            GameControl.Instance.gameOver = true;
+            if (GameControl.Instance.score > GameControl.Instance.highscore)
             {
                 newHighScore=true;
-                gameControl.highscore = gameControl.score;
-                PlayerPrefs.SetInt("highScore", gameControl.highscore);
+                GameControl.Instance.highscore = GameControl.Instance.score;
+                PlayerPrefs.SetInt("highScore", GameControl.Instance.highscore);
             }
-            gameControl.GameOver();
+            GameControl.Instance.GameOver();
         }
     }
 }
