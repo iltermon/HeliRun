@@ -119,6 +119,12 @@ public class GameControl : MonoBehaviour
             }
         }
         WaitforInput();
+        BackgroundAnimation();
+        reset_time += Time.deltaTime;
+        RepositionBlocks();
+    }
+    public void BackgroundAnimation()
+    {
         if(background1.transform.position.x <= -size)
         {
             background1.transform.position += new Vector3(size * 2, 0);
@@ -127,18 +133,20 @@ public class GameControl : MonoBehaviour
         {
             background2.transform.position += new Vector3(size * 2, 0);
         }
-        reset_time += Time.deltaTime;
+    }
+    public void RepositionBlocks()
+    {
         if (reset_time > 2f && gameOver==false && gameStarted==true)
-        {
-            reset_time = 0;
-            float yAxis = Random.Range(13.29f, 19.47f);
-            blocks[counter].transform.position = new Vector3(13.47f, yAxis);
-            counter++;
-            if (counter >= blocks.Length)
             {
-                counter = 0;
+                reset_time = 0;
+                float yAxis = Random.Range(13.29f, 19.47f);
+                blocks[counter].transform.position = new Vector3(13.47f, yAxis);
+                counter++;
+                if (counter >= blocks.Length)
+                {
+                    counter = 0;
+                }
             }
-        }
     }
     public void CreateBlocks()
     {
