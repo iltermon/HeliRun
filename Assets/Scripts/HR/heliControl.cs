@@ -87,7 +87,7 @@ public class heliControl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("point") && GameControl.Instance.scene=="game_scene")
+        if (collision.gameObject.CompareTag("point"))
         {
             GameControl.Instance.Score();
         }
