@@ -52,12 +52,20 @@ namespace NeuralNetwork
                 this.biases[0] = new Matrix(nn.biases[0]);
                 this.biases[1] = new Matrix(nn.biases[1]);
             }
-            public static void activation(Matrix temp)
+            public static void Sigmoid(Matrix temp)
             {
                 for (int i = 0; i < temp.row; i++)
                 {
                     for (int j = 0; j < temp.column; j++)               
-                        temp.matrix[i, j] = (1f / (1f + (float)Math.Exp(-temp.matrix[i, j])));
+                        temp.matrix[i, j] = 1f / (1f + (float)Math.Exp(-temp.matrix[i, j]));
+                }
+            }
+            public static void Tanh(Matrix temp)
+            {
+                for (int i = 0; i < temp.row; i++)
+                {
+                    for (int j = 0; j < temp.column; j++)               
+                        temp.matrix[i, j] = 2f / (1f + (float)Math.Exp(-2f*temp.matrix[i, j]))-1;
                 }
             }
             public static float error(Matrix output, Matrix target)
@@ -95,10 +103,10 @@ namespace NeuralNetwork
             {
                 hidden = Matrix.mult(weights[0], input);//h
                 hidden = Matrix.add(hidden, biases[0]);//neth
-                activation(hidden);//outh
+                Tanh(hidden);//outh
                 output = Matrix.mult(weights[1], hidden);//o
                 output = Matrix.add(output, biases[1]);//neto
-                activation(output);//outo  
+                Tanh(output);//outo  
             }
             public void backProp()
             {

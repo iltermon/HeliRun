@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class AI_Trainer : MonoBehaviour
 {
 	public Population population;
-	NeuralNetwork.NeuralNetwork currNN;
+	public NeuralNetwork.NeuralNetwork currNN;
 	Transform raycastPoint;
 	RaycastHit2D[] sensors;
     public Material lineRendererMaterial;
@@ -15,15 +15,16 @@ public class AI_Trainer : MonoBehaviour
 	Vector3 startPosCave2;
 	Vector3 currCarPos;
 	Vector3 lastCarPos;
-	public float totalDist;
+	public int maxDist;
 	public float timePassed;
 	public float timeScale = 1f;
     readonly float rayDist = 8;
 	public int dist=0;
 	private static AI_Trainer instance;
-	public float forward, up, down, vel;
+	public float right, up, down, vel;
 	public static AI_Trainer Instance { get { return instance; } }
-
+	
+	
 	private void Awake()
 	{
 		if (instance != null && instance != this)
@@ -39,7 +40,7 @@ public class AI_Trainer : MonoBehaviour
 	void Start ()
 	{
 		dist=0;
-		population = new Population(10, new int[]{4, 200, 1}, 1f);
+		population = new Population(10, new int[]{3, 25, 1}, 1f);
 		raycastPoint = transform.Find("RaycastPoint");	
 		startPosition = transform.position;
 		currCarPos = lastCarPos = startPosition;
@@ -73,9 +74,9 @@ public class AI_Trainer : MonoBehaviour
 		Time.timeScale = timeScale;
 		sensors = new RaycastHit2D[3];
 		sensors[0] = Physics2D.Raycast(raycastPoint.position, raycastPoint.up, rayDist);
-		sensors[1] = Physics2D.Raycast(raycastPoint.position, raycastPoint.forward, rayDist);
+		sensors[1] = Physics2D.Raycast(raycastPoint.position, raycastPoint.right, rayDist);
 		sensors[2] = Physics2D.Raycast(raycastPoint.position, -raycastPoint.up, rayDist);
-		forward = down = up = rayDist;
+		right = down = up = rayDist;
 			if (sensors[0].collider != null )
 			{
 				if(!sensors[0].collider.CompareTag("point"))
@@ -87,7 +88,7 @@ public class AI_Trainer : MonoBehaviour
 			{
 				if(!sensors[1].collider.CompareTag("point"))
 				{
-				forward = sensors[1].distance;
+				right = sensors[1].distance;
 				}
 				
 			}
@@ -100,15 +101,14 @@ public class AI_Trainer : MonoBehaviour
 			}
 		vel = GetComponent<Rigidbody2D>().velocity[1];
 		currNN.input.matrix[0, 0] = (2f / rayDist) * up - 1f;
-		currNN.input.matrix[1, 0] = (2f / rayDist) * forward - 1f;
+		currNN.input.matrix[1, 0] = (2f / rayDist) * right - 1f;
 		currNN.input.matrix[2, 0] = (2f / rayDist) * down - 1f;
-		currNN.input.matrix[3, 0] = (2f/rayDist) * vel - 1f ;
 		currNN.FeedForward();
 
 		heliControl.Instance.vertical = currNN.output.matrix[0, 0];
 
 		currCarPos = transform.position;
-		totalDist += Vector3.Distance(currCarPos, lastCarPos);
+		
 		lastCarPos = currCarPos;
 
 		timePassed += Time.deltaTime;
@@ -135,7 +135,10 @@ public class AI_Trainer : MonoBehaviour
 		GameControl.Instance.bgrigid2.position = startPosCave2;
 		GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		GameControl.Instance.CreateBlocks();
+		if(maxDist<dist)
+			maxDist=dist;
 		dist=0;
+		
 	}
 
 // 	void DrawSensorLines()

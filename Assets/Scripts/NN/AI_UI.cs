@@ -8,12 +8,14 @@ public class AI_UI : MonoBehaviour
 {
     public Text distanceText;
     public Text upText;
-    public Text forwardText;
+    public Text rightText;
     public Text downText;
+	public Text populationText;
+	public Text indivText;
+	public Text maxText;
     public Button changeSpeedButton;
-
 	private static AI_UI instance;
-
+	public int indiv;
 	public static AI_UI Instance { get { return instance; } }
 
 	private void Awake()
@@ -32,8 +34,11 @@ public class AI_UI : MonoBehaviour
     void Update ()
 	{
 		distanceText.text=AI_Trainer.Instance.dist.ToString();
-		upText.text=AI_Trainer.Instance.up.ToString();
-		downText.text=AI_Trainer.Instance.down.ToString();
-		forwardText.text=AI_Trainer.Instance.forward.ToString();
+		upText.text=AI_Trainer.Instance.currNN.input.matrix[0, 0].ToString();
+		downText.text=AI_Trainer.Instance.currNN.input.matrix[2, 0].ToString();
+		rightText.text=AI_Trainer.Instance.currNN.input.matrix[1, 0].ToString();
+		indivText.text=AI_Trainer.Instance.population.generationNumber.ToString();
+		populationText.text=AI_Trainer.Instance.population.currIndiv.ToString();
+		maxText.text = AI_Trainer.Instance.maxDist.ToString();
 	}
 }
