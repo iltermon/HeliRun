@@ -143,12 +143,21 @@ public class GameControl : MonoBehaviour
                 }
             }
     }
+    
     public void CreateBlocks()
     {
         for (int i = 0; i < blocks.Length; i++)
         {
-            blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.Euler(0, 0, 0));
-            blockRigid = blocks[i].AddComponent<Rigidbody2D>();
+            if(blocks[i]==null)
+            {
+                blocks[i] = Instantiate(block, new Vector2(-20, -20), Quaternion.Euler(0, 0, 0)); 
+                blockRigid = blocks[i].AddComponent<Rigidbody2D>();
+            }
+            else
+            {
+                blocks[i].transform.position = new Vector2(-20,-20);
+                blockRigid = blocks[i].GetComponent<Rigidbody2D>();
+            }
             blockRigid.gravityScale = 0;
             blockRigid.velocity = new Vector2(-backgroundSpeed, 0);
         }

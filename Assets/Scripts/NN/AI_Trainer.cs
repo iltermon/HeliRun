@@ -134,6 +134,7 @@ public class AI_Trainer : MonoBehaviour
 		GameControl.Instance.bgrigid1.position = startPosCave1;
 		GameControl.Instance.bgrigid2.position = startPosCave2;
 		GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+		GameControl.Instance.CreateBlocks();
 		dist=0;
 	}
 
