@@ -5,26 +5,18 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
-{
-    public Text scoreText;
+{ 
     public int score;
     public int highscore;
     public bool gameStarted = false;
     public bool paused = false;
-    public Text yourScore;
     public bool muted;
-    public Text newRecord;
-    public Button pauseButton;
-    public Image gameOverImage;
-    public Text clickToStart;
     public GameObject background1;
     public GameObject background2;
     public GameObject block;
     public int blockNumber=5;
     public float backgroundSpeed = 5f;
-    public Image title;
     public GameObject helicopter;
-    public Text highscoreText;
     public bool gameOver = false;
     public GameObject[] blocks;
     public Rigidbody2D bgrigid1;
@@ -34,7 +26,7 @@ public class GameControl : MonoBehaviour
     private int counter = 0;
     private float size = 0;
     float _time = 0;
-
+    public string scene;
     
     private static GameControl instance;
 
@@ -54,6 +46,7 @@ public class GameControl : MonoBehaviour
     }
     void Start()
     {
+        scene = SceneManager.GetActiveScene().name;
         score = 0; 
         heliControl.Instance.newHighScore = false;
         gameOver = false;
@@ -62,26 +55,23 @@ public class GameControl : MonoBehaviour
         bgrigid2 = background2.GetComponent<Rigidbody2D>();
         blocks = new GameObject[blockNumber];
         highscore = PlayerPrefs.GetInt("highScore");
-        highscoreText.text = "High Score: " + highscore.ToString();
-        gameOverImage.gameObject.SetActive(false);
-        pauseButton.gameObject.SetActive(false);
-        newRecord.gameObject.SetActive(false);
-        yourScore.gameObject.SetActive(false);
-
     }
     void WaitforInput()
     {
-
-        if(gameStarted==false && heliControl.Instance.vertical > 0)
+        if(gameStarted==false && heliControl.Instance.vertical > 0 && scene=="game_scene")
+        {
+            gameOver = false;
+            gameStarted = true;
+            UI.Instance.DeactivateUI();
+            StartGame();
+        }
+        else if(gameStarted==false && heliControl.Instance.vertical > 0)
         {
             gameOver = false;
             gameStarted = true;
             StartGame();
-            title.gameObject.SetActive(false);
-            highscoreText.gameObject.SetActive(false);
-            clickToStart.gameObject.SetActive(false);
         }
-        else if(gameStarted==true && heliControl.Instance.vertical>0 && gameOver == true && SceneManager.GetActiveScene().name == "game_scene")
+        else if(gameStarted==true && heliControl.Instance.vertical>0 && gameOver == true && scene == "game_scene")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Start();
@@ -90,25 +80,30 @@ public class GameControl : MonoBehaviour
     }
     void StartGame()
     {
-        pauseButton.gameObject.SetActive(true);
+        if(scene=="game_scene")
+        {
+            UI.Instance.pauseButton.gameObject.SetActive(true);
+        }
         bgrigid1.velocity = new Vector2(-backgroundSpeed, 0);
         bgrigid2.velocity = new Vector2(-backgroundSpeed, 0);
         helicopter.GetComponent<Rigidbody2D>().simulated = true;
         size = 40;
         heliControl.Instance.sounds[0].Play();
         CreateBlocks();
-        
     }
     // Update is called once per frame
     void Update()
     {
         _time += Time.deltaTime;
-        if (score == highscore+1)
+        if(scene=="game_scene")
         {
-            newRecord.gameObject.SetActive(true);
-        }else if(_time > 3 && newRecord.IsActive())
-        {
-            newRecord.gameObject.SetActive(false);
+            if (score == highscore+1)
+            {
+                UI.Instance.newRecord.gameObject.SetActive(true);
+            }else if(_time > 3 && UI.Instance.newRecord.IsActive())
+            {
+                UI.Instance.newRecord.gameObject.SetActive(false);
+            }
         }
         if (Application.platform == RuntimePlatform.Android)
         {
@@ -169,23 +164,23 @@ public class GameControl : MonoBehaviour
                 bgrigid1.velocity = Vector2.zero;
                 bgrigid2.velocity = Vector2.zero;
             }
-            gameOverImage.gameObject.SetActive(true);
-            clickToStart.gameObject.SetActive(true);
-            pauseButton.gameObject.SetActive(false);
+            UI.Instance.gameOverImage.gameObject.SetActive(true);
+            UI.Instance.clickToStart.gameObject.SetActive(true);
+            UI.Instance.pauseButton.gameObject.SetActive(false);
             heliControl.Instance.vertical = 0;
             if (heliControl.Instance.newHighScore)
             {
-                highscoreText.text = "New High Score";
-                yourScore.text = "Your Score: " + score.ToString();
-                highscoreText.gameObject.SetActive(true);
-                yourScore.gameObject.SetActive(true);
+                UI.Instance.highscoreText.text = "New High Score";
+                UI.Instance.yourScore.text = "Your Score: " + score.ToString();
+                UI.Instance.highscoreText.gameObject.SetActive(true);
+                UI.Instance.yourScore.gameObject.SetActive(true);
             }
             else
             {
-                highscoreText.text = "High Score: " + highscore.ToString();
-                yourScore.text = "Your Score: " + score.ToString();
-                highscoreText.gameObject.SetActive(true);
-                yourScore.gameObject.SetActive(true);
+                UI.Instance.highscoreText.text = "High Score: " + highscore.ToString();
+                UI.Instance.yourScore.text = "Your Score: " + score.ToString();
+                UI.Instance.highscoreText.gameObject.SetActive(true);
+                UI.Instance.yourScore.gameObject.SetActive(true);
             }
         }
     }
@@ -200,10 +195,10 @@ public class GameControl : MonoBehaviour
         blocks[3].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
         blocks[4].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
     }
-    public void AddScore()
+    public void Score()
     {
             score++;
-            scoreText.text = GameControl.Instance.score.ToString();
+            UI.Instance.scoreText.text = GameControl.Instance.score.ToString();
             //TODO: sesi gamecontrolün içine al tamamen.
             heliControl.Instance.sounds[2].Play();
             IncreaseVelocity();
