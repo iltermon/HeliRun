@@ -7,11 +7,9 @@ using UnityEngine.UI;
 public class ButtonControl : MonoBehaviour
 {
     public Button resumeButton;
-
-    public void GetVertical()
+    public void ClickVertical()
     {
-        heliControl.Instance.vertical = 1;
-
+        heliControl.Instance.Accelerate();
     }
     public void ReleaseVertical()
     {
