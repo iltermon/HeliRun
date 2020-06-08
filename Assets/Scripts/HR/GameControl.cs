@@ -55,9 +55,16 @@ public class GameControl : MonoBehaviour
         bgrigid2 = background2.GetComponent<Rigidbody2D>();
         blocks = new GameObject[blockNumber];
         highscore = PlayerPrefs.GetInt("highScore");
+        if(scene=="training_scene")
+        {
+           gameOver = false;
+           gameStarted = true;
+           StartGame();
+        }
     }
     void WaitforInput()
     {
+
         if(gameStarted==false && heliControl.Instance.vertical > 0 && scene=="game_scene")
         {
             gameOver = false;
@@ -77,8 +84,9 @@ public class GameControl : MonoBehaviour
             Start();
         
         }
+        
     }
-    void StartGame()
+    public void StartGame()
     {
         if(scene=="game_scene")
         {
