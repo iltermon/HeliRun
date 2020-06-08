@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Analytics;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
 
 
 public class heliControl : MonoBehaviour
@@ -112,5 +107,13 @@ public class heliControl : MonoBehaviour
             }
             GameControl.Instance.GameOver();
         }
+    }
+    public void Accelerate()
+    {
+        heliControl.Instance.vertical=1;
+        if(helicopterRigid.velocity[1]<0)
+          {  
+            helicopterRigid.velocity=new Vector2(helicopterRigid.velocity[0],helicopterRigid.velocity[1]/2);
+          }  
     }
 }
