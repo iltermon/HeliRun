@@ -21,10 +21,10 @@ namespace NeuralNetwork
 
 		public int currIndiv;
 
-		public Population(int populationSize, int[] topology, float learningRate)
+		public Population(int populationSize, int[] topology, float learningRate, int mutationRate)
 		{
 			this.populationSize = populationSize;
-			this.mutationRate = 30;
+			this.mutationRate = mutationRate;
 			this.generationNumber = 1;
 			this.currIndiv = -1;
 
