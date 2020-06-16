@@ -13,7 +13,7 @@ public class heliControl : MonoBehaviour
     public int speed = 10;
     public AudioSource []sounds;
     public bool newHighScore=false;
-
+    float velX,velY;
     private static heliControl instance;
 
     public static heliControl Instance { get { return instance; } }
@@ -39,9 +39,15 @@ public class heliControl : MonoBehaviour
 
     void Update()
     {
+        velX=helicopterRigid.velocity[0];
+        velY=helicopterRigid.velocity[1];
         if (GameControl.Instance.gameOver==false && GameControl.Instance.gameStarted==true)
         {
             Animation();
+        }
+        if(velY<-5f)
+        {
+            helicopterRigid.velocity = new Vector2(velX,-5f);
         }
     }
 
@@ -112,8 +118,8 @@ public class heliControl : MonoBehaviour
     {
         heliControl.Instance.vertical=1;
         if(helicopterRigid.velocity[1]<0)
-          {  
+        {  
             helicopterRigid.velocity=new Vector2(helicopterRigid.velocity[0],helicopterRigid.velocity[1]/2);
-          }  
+        }  
     }
 }
