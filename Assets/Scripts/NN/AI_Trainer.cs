@@ -25,7 +25,7 @@ public class AI_Trainer : MonoBehaviour
 	private static AI_Trainer instance;
 	public float topfwd, botfwd, right, up, down, vel;
     private float maxVel;
-    private float minVel;
+    private float minVel,lowestVel;
 
     public static AI_Trainer Instance { get { return instance; } }
 	
@@ -45,7 +45,7 @@ public class AI_Trainer : MonoBehaviour
 	void Start ()
 	{
 		dist=0;
-		population = new Population(10, new int[]{6, 150, 1}, 1f,30);
+		population = new Population(10, new int[]{6, 64, 1}, 1f,30);
 		raycastPoint = transform.Find("RaycastPoint2");	
 		topSensorPos = transform.Find("RaycastPoint1");	
 		bottomSensorPos = transform.Find("RaycastPoint3");	
@@ -80,7 +80,7 @@ public class AI_Trainer : MonoBehaviour
 		AI_UI.Instance.distanceText.text = dist.ToString();
 		Time.timeScale = timeScale;
 		sensors = new RaycastHit2D[5];
-		//daha fazla sensör ekle
+		
 		sensors[0] = Physics2D.Raycast(raycastPoint.position, raycastPoint.up, rayDist);
 		sensors[1] = Physics2D.Raycast(raycastPoint.position, raycastPoint.right, rayDist);
 		sensors[2] = Physics2D.Raycast(raycastPoint.position, -raycastPoint.up, rayDist);
@@ -124,12 +124,14 @@ public class AI_Trainer : MonoBehaviour
 				}
 			}
 		maxVel=14;
-		minVel=-17f;
+		minVel=-10f;
+		
 		vel = GetComponent<Rigidbody2D>().velocity[1];
-		if(vel<0)
+		if(lowestVel>vel)
 		{
-			
+			lowestVel=vel;	
 		}
+		//TODO: Bi fonksiyon oluşturabilirsin 
 		currNN.input.matrix[0, 0] = (2f / rayDist) * up - 1f;
 		currNN.input.matrix[1, 0] = (2f / rayDist) * right - 1f;
 		currNN.input.matrix[2, 0] = (2f / rayDist) * down - 1f;
@@ -155,7 +157,6 @@ public class AI_Trainer : MonoBehaviour
 	{
 		if (!collision.CompareTag("point"))
 		{
-
 			population.SetFitnessOfCurrIndividual(dist);
 			currNN = population.Next();
 			ResetCarPosition(); 
