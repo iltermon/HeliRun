@@ -12,6 +12,8 @@ namespace NeuralNetwork
 		NeuralNetwork[] individuals;
 
 		float[] distanceFitness;
+		float[] scoreFitness;
+		float[] velocityFitness;
 
 		public int populationSize;
 
@@ -31,7 +33,8 @@ namespace NeuralNetwork
 			randomize = new System.Random();
 
 			distanceFitness = new float[populationSize];
-
+			scoreFitness = new float[populationSize];
+			velocityFitness = new float[populationSize];
 			individuals = new NeuralNetwork[populationSize];
 			for(int i = 0; i < individuals.Length; i++)
 				individuals[i] = new NeuralNetwork(topology[0], topology[1], topology[2], learningRate);
@@ -55,7 +58,6 @@ namespace NeuralNetwork
 		{
 			NeuralNetwork first, second;
 			FindFirstAndSecond(out first, out second);
-
 			NeuralNetwork child = Crossover(first, second);
 
 			for(int i = 0; i < populationSize; i++)
@@ -98,7 +100,6 @@ namespace NeuralNetwork
 			first = individuals[firstIndex];
 			second = individuals[secondIndex];
 		}
-
 		private NeuralNetwork Mutation(NeuralNetwork child)
 		{
 			// Get copy of child
