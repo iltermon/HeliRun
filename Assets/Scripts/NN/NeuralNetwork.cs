@@ -35,7 +35,6 @@ namespace NeuralNetwork
                 this.weights[1].Randomize();
                 this.biases[0].Randomize();
                 this.biases[1].Randomize();
-
             }
             public NeuralNetwork(NeuralNetwork nn)
             {
