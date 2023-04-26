@@ -206,11 +206,10 @@ public class GameControl : MonoBehaviour
     {
         bgrigid1.velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
         bgrigid2.velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
-        blocks[0].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
-        blocks[1].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
-        blocks[2].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
-        blocks[3].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
-        blocks[4].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
+        for(block_index =0 ; block_index < blocks.Length; block_index++)
+        {
+            blocks[i].GetComponent<Rigidbody2D>().velocity = new Vector2(-(backgroundSpeed + (score / 10)), 0);
+        }
     }
     public void Score()
     {
